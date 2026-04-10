@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Принц — Персонажи</title>
+
+<style>
+body {
+  margin:0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background:#0f0f0f;
+  color:white;
+}
+
+h1 {
+  text-align:center;
+  margin:20px 0;
+  font-size:22px;
+}
+
+.role-list {
+  padding:10px;
+}
+
+.role-card {
+  background:#1c1c1e;
+  margin-bottom:10px;
+  padding:15px;
+  border-radius:16px;
+}
+
+.role-date { color:#888; font-size:13px; }
+.role-count { color:#aaa; font-size:12px; }
+
+.actor-container {
+  padding:10px;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:15px;
+}
+
+.actor-card {
+  background:#1c1c1e;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.actor-card img {
+  width:100%;
+  aspect-ratio: 3/4;
+  object-fit:cover;
+}
+
+.actor-info {
+  padding:12px;
+}
+
+.name {
+  font-size:17px;
+  font-weight:600;
+}
+
+.btn {
+  margin-top:10px;
+  padding:12px;
+  background:#ff3b30;
+  border:none;
+  border-radius:12px;
+  width:100%;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.back {
+  padding:10px;
+  color:#888;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="home">
+<h1>Проект "Принц"</h1>
+<div class="role-list" id="roleList"></div>
+</div>
+
+<div id="actorPage" style="display:none;">
+<div class="back" onclick="goBack()">← Назад</div>
+<div class="actor-container" id="actorContainer"></div>
+</div>
+
+<script>
+
+const data = {
+
+"Дрессировщик":[
+  {
+    name:"Дружинин Павел",
+    img:"photos/Дружинин.jpg",
+    age:"39 лет",
+    height:"165 см",
+    edu:"ШРД им. И.О. Горбачева, 2015",
+    ft:"https://casting.filmtoolz.ru/3119201/",
+    video:"https://casting.filmtoolz.ru/3119201/?modal=actor#video-cp152523"
+  },
+  {
+    name:"Шихалеев Сергей",
+    img:"photos/Шихалеев.jpg",
+    age:"36 лет",
+    height:"165 см",
+    edu:"РГИСИ, мастерская Р. Камхена",
+    ft:"https://casting.filmtoolz.ru/3566324/",
+    video:"https://casting.filmtoolz.ru/3566324/?modal=actor#video"
+  },
+  {
+    name:"Опря Макс",
+    img:"photos/Опря.jpg",
+    age:"27 лет",
+    height:"165 см",
+    edu:"Свердловский колледж искусств и культуры (Театральное творчество), мастер курса: Чиняева Н.Н.",
+    ft:"https://www.kinopoisk.ru/name/10395315/",
+    video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA"
+  }
+],
+
+"Хозяйка Молли":[],
+"Ольга Львовна":[],
+"Ведущий":[],
+"Охранник":[],
+"Толстый мужчина с английским бульдогом":[],
+"Кудрявая девушка с пуделем":[],
+"Фотограф":[],
+"Мама ребенка":[],
+"Ребенок":[],
+"Менеджер ресторана":[],
+"Повар":[],
+"дублер Папы":[],
+"дублер Мамы":[],
+"дублер Сын":[]
+
+};
+
+const roleDates = {};
+for(let role in data){
+  roleDates[role] = "апрель";
+}
+
+const roleList = document.getElementById('roleList');
+
+for(let role in data){
+  const div = document.createElement('div');
+  div.className='role-card';
+
+  div.innerHTML = `
+    <strong>${role}</strong>
+    <div class="role-date">${roleDates[role]}</div>
+    <div class="role-count">Проб: ${data[role].length}</div>
+  `;
+
+  div.onclick = ()=>openRole(role);
+  roleList.appendChild(div);
+}
+
+function openRole(role){
+  const list = data[role];
+
+  if(list.length===0){
+    alert('Проб пока нет');
+    return;
+  }
+
+  document.getElementById('home').style.display='none';
+  document.getElementById('actorPage').style.display='block';
+
+  const container = document.getElementById('actorContainer');
+  container.innerHTML='';
+
+  list.forEach(actor=>{
+    const card = document.createElement('div');
+    card.className='actor-card';
+
+    card.innerHTML = `
+      <img src="${actor.img}">
+      <div class="actor-info">
+        <div class="name">${actor.name}</div>
+        <div class="role-date">Возраст: ${actor.age}</div>
+        <div class="role-date">Рост: ${actor.height}</div>
+        <div class="role-date">${actor.edu}</div>
+
+        <button class="btn" onclick="window.open('${actor.ft}', '_blank')">
+          Анкета
+        </button>
+
+        <button class="btn" onclick="window.open('${actor.video}', '_blank')">
+          Смотреть видео
+        </button>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function goBack(){
+  document.getElementById('actorPage').style.display='none';
+  document.getElementById('home').style.display='block';
+}
+
+</script>
+
+</body>
+</html>
