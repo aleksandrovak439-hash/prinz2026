@@ -43,7 +43,7 @@ h1 {
   overflow:hidden;
 }
 
-/* 👇 ДОБАВИЛ ОБЁРТКУ ДЛЯ КАРУСЕЛИ */
+/* КАРУСЕЛЬ */
 .carousel {
   display:flex;
   overflow-x:auto;
@@ -57,7 +57,7 @@ h1 {
   scroll-snap-align:center;
 }
 
-/* 👇 ИНДИКАТОРЫ КАРУСЕЛИ */
+/* ТОЧКИ */
 .dots {
   display:flex;
   justify-content:center;
@@ -70,6 +70,7 @@ h1 {
   height:6px;
   border-radius:50%;
   background:#444;
+  transition:0.2s;
 }
 
 .dot.active {
@@ -223,14 +224,12 @@ const data = {
 
 const roleList = document.getElementById('roleList');
 
-// УТВЕРЖДЕННЫЕ
 const approvedDiv = document.createElement('div');
 approvedDiv.className='role-card';
 approvedDiv.innerHTML = `<strong>✅ УТВЕРЖДЕННЫЕ</strong>`;
 approvedDiv.onclick = openApproved;
 roleList.appendChild(approvedDiv);
 
-// роли
 for(let role in data){
   const div = document.createElement('div');
   div.className='role-card';
@@ -244,7 +243,7 @@ for(let role in data){
   roleList.appendChild(div);
 }
 
-// открыть роль
+// 👉 ОБНОВЛЕННАЯ ЛОГИКА КАРУСЕЛИ
 function openRole(role){
   const list = data[role];
 
@@ -294,6 +293,19 @@ function openRole(role){
     `;
 
     container.appendChild(card);
+
+    // 🔥 ВАЖНО: привязка индикаторов
+    const carousel = card.querySelector('.carousel');
+    const dots = card.querySelectorAll('.dot');
+
+    if(carousel){
+      carousel.addEventListener('scroll', ()=>{
+        const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
+        dots.forEach((d,i)=>{
+          d.classList.toggle('active', i===index);
+        });
+      });
+    }
   });
 }
 
