@@ -28,8 +28,11 @@ h1 {
   border-radius:16px;
 }
 
-.role-date { color:#888; font-size:13px; }
-.role-count { color:#aaa; font-size:12px; }
+.role-count {
+  color:#aaa;
+  font-size:12px;
+  margin-top:4px;
+}
 
 .actor-container {
   padding:10px;
@@ -43,12 +46,11 @@ h1 {
   overflow:hidden;
 }
 
-/* КАРУСЕЛЬ */
+/* CAROUSEL */
 .carousel {
   display:flex;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling: touch;
 }
 
 .carousel img {
@@ -57,7 +59,7 @@ h1 {
   scroll-snap-align:center;
 }
 
-/* ТОЧКИ */
+/* DOTS */
 .dots {
   display:flex;
   justify-content:center;
@@ -70,16 +72,10 @@ h1 {
   height:6px;
   border-radius:50%;
   background:#444;
-  transition:0.2s;
 }
 
 .dot.active {
   background:#ff3b30;
-}
-
-.actor-card img {
-  width:100%;
-  object-fit:cover;
 }
 
 .actor-info { padding:12px; }
@@ -97,16 +93,14 @@ h1 {
   border-radius:12px;
   width:100%;
   color:white;
-  cursor:pointer;
 }
 
 .back {
   padding:10px;
   color:#888;
-  cursor:pointer;
 }
 
-/* УТВЕРЖДЕННЫЕ */
+/* LISTS */
 .approved-container { padding:10px; }
 
 .approved-row {
@@ -116,7 +110,7 @@ h1 {
   background:#1c1c1e;
   padding:10px;
   border-radius:12px;
-  align-items:center;
+  align-items:flex-start;
 }
 
 .approved-row img {
@@ -150,61 +144,60 @@ h1 {
 <div class="approved-container" id="approvedContainer"></div>
 </div>
 
+<div id="viewedPage" style="display:none;">
+<div class="back" onclick="goBack()">← Назад</div>
+<div class="approved-container" id="viewedContainer"></div>
+</div>
+
 <script>
 
-// УТВЕРЖДЕННЫЕ
+// 🔥 УТВЕРЖДЕННЫЕ
 const approved = [];
 
-// АКТЕРЫ
-const data = {
-
-"Дрессировщик":[
-   {
+// 🔥 ПРОСМОТРЕННЫЕ (СЮДА ПЕРЕНЕСЛИ ДРЕССИРОВЩИКОВ)
+const viewed = [
+{
     name:"Дружинин Павел",
     img:"photos/Дружинин.jpg",
     age:"39 лет",
-    height:"165 см",
-    edu:"ШРД им. И.О. Горбачева, 2015",
-    ft:"https://casting.filmtoolz.ru/3119201/",
-    video:"https://casting.filmtoolz.ru/3119201/?modal=actor#video-cp152523"
-  },
-  {
+    size:"165 см",
+    video:"https://casting.filmtoolz.ru/3119201/"
+},
+{
     name:"Шихалеев Сергей",
     img:"photos/Шихалеев.jpg",
     age:"36 лет",
-    height:"165 см",
-    edu:"РГИСИ, мастерская Р. Камхена",
-    ft:"https://casting.filmtoolz.ru/3566324/",
-    video:"https://casting.filmtoolz.ru/3566324/?modal=actor#video"
-  },
-  {
+    size:"165 см",
+    video:"https://casting.filmtoolz.ru/3566324/"
+},
+{
     name:"Опря Макс",
     img:"photos/Опря.jpg",
     age:"27 лет",
-    height:"165 см",
-    edu:"Свердловский колледж искусств и культуры",
-    ft:"https://www.kinopoisk.ru/name/10395315/",
+    size:"165 см",
     video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA"
-  },
-  {
+},
+{
     name:"Бызгу Фома",
     img:"photos/Бызгу.jpg",
     age:"30 лет",
-    height:"165 см",
-    edu:"РГИСИ 2018",
-    ft:"https://casting.filmtoolz.ru/3161196/",
-    video:"https://casting.filmtoolz.ru/3161196/?modal=actor#video"
-  }
-],
+    size:"165 см",
+    video:"https://casting.filmtoolz.ru/3161196/"
+}
+];
+
+// ВСЕ ПЕРСОНАЖИ (ДРЕССИРОВЩИКИ УБРАНЫ)
+const data = {
+
+"Дрессировщик":[],
 
 "Кудрявая девушка с пуделем":[
 {
   name:"Зарбалиева Сабина",
   img:"photos/Сабина.jpg",
   img2:"photos/пудельМакс.jpg",
-  info:"пудель Максим",
   size:"171/44",
-  video: "https://disk.yandex.ru/d/XcqkLtlzmqzW2w"
+  video:"https://disk.yandex.ru/d/XcqkLtlzmqzW2w"
 }
 ],
 
@@ -223,99 +216,117 @@ const data = {
 "дублер Сын":[]
 };
 
-const roleList = document.getElementById('roleList');
+const roleList=document.getElementById('roleList');
 
-const approvedDiv = document.createElement('div');
+// вкладки
+const approvedDiv=document.createElement('div');
 approvedDiv.className='role-card';
-approvedDiv.innerHTML = `<strong>✅ УТВЕРЖДЕННЫЕ</strong>`;
-approvedDiv.onclick = openApproved;
+approvedDiv.innerHTML='✅ УТВЕРЖДЕННЫЕ';
+approvedDiv.onclick=openApproved;
 roleList.appendChild(approvedDiv);
 
+const viewedDiv=document.createElement('div');
+viewedDiv.className='role-card';
+viewedDiv.innerHTML='👁 ПРОСМОТРЕННЫЕ';
+viewedDiv.onclick=openViewed;
+roleList.appendChild(viewedDiv);
+
+// роли
 for(let role in data){
-  const div = document.createElement('div');
+  const div=document.createElement('div');
   div.className='role-card';
 
-  div.innerHTML = `
+  div.innerHTML=`
     <strong>${role}</strong>
     <div class="role-count">Проб: ${data[role].length}</div>
   `;
 
-  div.onclick = ()=>openRole(role);
+  div.onclick=()=>openRole(role);
   roleList.appendChild(div);
 }
 
-// 👉 ОБНОВЛЕННАЯ ЛОГИКА КАРУСЕЛИ
+// роли
 function openRole(role){
-  const list = data[role];
-
-  if(list.length===0){
-    alert('Проб пока нет');
-    return;
-  }
+  const list=data[role];
 
   document.getElementById('home').style.display='none';
   document.getElementById('actorPage').style.display='block';
 
-  const container = document.getElementById('actorContainer');
+  const container=document.getElementById('actorContainer');
   container.innerHTML='';
 
+  if(list.length===0){
+    container.innerHTML='Пусто';
+    return;
+  }
+
   list.forEach(actor=>{
-    const card = document.createElement('div');
+    const photos=actor.img2
+    ? `<div class="carousel">
+        <img src="${actor.img}">
+        <img src="${actor.img2}">
+      </div>
+      <div class="dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>`
+    : `<img src="${actor.img}">`;
 
-    const photos = actor.img2 
-  	? `<div class="carousel">
-       		<img src="${actor.img}">
-       		<img src="${actor.img2}">
-     		</div>
-           <div class="dots">
-              <div class="dot active"></div>
-              <div class="dot"></div>
-           </div>`
-  	: `<img src="${actor.img}">`;
-
-    card.innerHTML = `
+    const card=document.createElement('div');
+    card.innerHTML=`
       <div class="actor-card">
         ${photos}
-
         <div class="actor-info">
           <div class="name">${actor.name}</div>
-
-          ${actor.info ? `<div class="role-date">${actor.info}</div>` : ''}
-          ${actor.size ? `<div class="role-date">${actor.size}</div>` : ''}
-
-          ${actor.age ? `<div class="role-date">Возраст: ${actor.age}</div>` : ''}
-          ${actor.height ? `<div class="role-date">Рост: ${actor.height}</div>` : ''}
-          ${actor.edu ? `<div class="role-date">${actor.edu}</div>` : ''}
-
-          ${actor.ft ? `<button class="btn" onclick="window.open('${actor.ft}')">Анкета</button>` : ''}
-          ${actor.video ? `<button class="btn" onclick="window.open('${actor.video}')">Видео</button>` : ''}
+          ${actor.age?`<div>Возраст: ${actor.age}</div>`:''}
+          ${actor.size?`<div>${actor.size}</div>`:''}
+          ${actor.video?`<button class="btn" onclick="window.open('${actor.video}')">Видео</button>`:''}
         </div>
       </div>
     `;
-
     container.appendChild(card);
-
-    // 🔥 ВАЖНО: привязка индикаторов
-    const carousel = card.querySelector('.carousel');
-    const dots = card.querySelectorAll('.dot');
-
-    if(carousel){
-      carousel.addEventListener('scroll', ()=>{
-        const index = Math.round(carousel.scrollLeft / carousel.clientWidth);
-        dots.forEach((d,i)=>{
-          d.classList.toggle('active', i===index);
-        });
-      });
-    }
   });
 }
 
-function openApproved(){
-  alert("Пока пусто");
+// просмотренные
+function openViewed(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('viewedPage').style.display='block';
+
+  const container=document.getElementById('viewedContainer');
+  container.innerHTML='';
+
+  viewed.forEach(a=>{
+    const row=document.createElement('div');
+    row.className='approved-row';
+
+    row.innerHTML=`
+      <img src="${a.img}">
+      <div class="approved-info">
+        <div><strong>${a.name}</strong></div>
+        <div>Возраст: ${a.age || '-'}</div>
+        <div>Размеры: ${a.size || '-'}</div>
+        ${a.video?`<button class="btn" onclick="window.open('${a.video}')">Видео</button>`:''}
+      </div>
+    `;
+    container.appendChild(row);
+  });
 }
 
+// утвержденные
+function openApproved(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('approvedPage').style.display='block';
+
+  const container=document.getElementById('approvedContainer');
+  container.innerHTML='Пусто';
+}
+
+// назад
 function goBack(){
   document.getElementById('actorPage').style.display='none';
+  document.getElementById('approvedPage').style.display='none';
+  document.getElementById('viewedPage').style.display='none';
   document.getElementById('home').style.display='block';
 }
 
