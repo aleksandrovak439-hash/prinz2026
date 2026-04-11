@@ -43,6 +43,39 @@ h1 {
   overflow:hidden;
 }
 
+/* 👇 ДОБАВИЛ ОБЁРТКУ ДЛЯ КАРУСЕЛИ */
+.carousel {
+  display:flex;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel img {
+  width:100%;
+  flex-shrink:0;
+  scroll-snap-align:center;
+}
+
+/* 👇 ИНДИКАТОРЫ КАРУСЕЛИ */
+.dots {
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin:6px 0 10px;
+}
+
+.dot {
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#444;
+}
+
+.dot.active {
+  background:#ff3b30;
+}
+
 .actor-card img {
   width:100%;
   object-fit:cover;
@@ -95,18 +128,6 @@ h1 {
 .approved-info {
   font-size:13px;
   line-height:1.4;
-}
-
-.carousel {
-  display:flex;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-}
-
-.carousel img {
-  width:100%;
-  flex-shrink:0;
-  scroll-snap-align:center;
 }
 </style>
 </head>
@@ -185,16 +206,7 @@ const data = {
 }
 ],
 
-"Толстый мужчина с английским бульдогом":[
-{
-  name:"Мужчина с бульдогом",
-  img:"photos/мужчина.jpg",
-  img2:"photos/бульдог.jpg",
-  info:"английский бульдог",
-  size:"---"
-}
-],
-
+"Толстый мужчина с английским бульдогом":[],
 "Хозяйка Молли":[],
 "Ольга Львовна":[],
 "Ведущий":[],
@@ -250,12 +262,15 @@ function openRole(role){
   list.forEach(actor=>{
     const card = document.createElement('div');
 
-    // 👉 ТОЛЬКО если есть img2 → 2 фото
     const photos = actor.img2 
   	? `<div class="carousel">
        		<img src="${actor.img}">
        		<img src="${actor.img2}">
-     		</div>`
+     		</div>
+           <div class="dots">
+              <div class="dot active"></div>
+              <div class="dot"></div>
+           </div>`
   	: `<img src="${actor.img}">`;
 
     card.innerHTML = `
