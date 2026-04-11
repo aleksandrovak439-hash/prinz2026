@@ -36,7 +36,6 @@ h1 {
 .actor-container {
   padding:10px;
   display:grid;
-  grid-template-columns:1fr;
   gap:15px;
 }
 
@@ -69,7 +68,6 @@ h1 {
   border-radius:12px;
   width:100%;
   color:white;
-  font-size:15px;
   cursor:pointer;
 }
 
@@ -78,23 +76,71 @@ h1 {
   color:#888;
   cursor:pointer;
 }
+
+/* УТВЕРЖДЕННЫЕ */
+.approved-container {
+  padding:10px;
+}
+
+.approved-row {
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  background:#1c1c1e;
+  padding:10px;
+  border-radius:12px;
+  align-items:center;
+}
+
+.approved-row img {
+  width:70px;
+  height:90px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.approved-info {
+  font-size:13px;
+  line-height:1.4;
+}
 </style>
 </head>
 
 <body>
 
+<!-- Главная -->
 <div id="home">
 <h1>Проект "Принц"</h1>
 <div class="role-list" id="roleList"></div>
 </div>
 
+<!-- Актеры -->
 <div id="actorPage" style="display:none;">
 <div class="back" onclick="goBack()">← Назад</div>
 <div class="actor-container" id="actorContainer"></div>
 </div>
 
+<!-- УТВЕРЖДЕННЫЕ -->
+<div id="approvedPage" style="display:none;">
+<div class="back" onclick="goBack()">← Назад</div>
+<div class="approved-container" id="approvedContainer"></div>
+</div>
+
 <script>
 
+// УТВЕРЖДЕННЫЕ
+const approved = [
+{
+  img:"photos/тест.jpg",
+  role:"Дрессировщик",
+  name:"Тест Тестович",
+  size:"Рост: 165 | Одежда: M | Обувь: 41",
+  contacts:"+7 999 000 00 00",
+  date:"тест"
+}
+];
+
+// АКТЕРЫ
 const data = {
 
 "Дрессировщик":[
@@ -121,16 +167,16 @@ const data = {
     img:"photos/Опря.jpg",
     age:"27 лет",
     height:"165 см",
-    edu:"Свердловский колледж искусств и культуры (Театральное творчество), мастер курса: Чиняева Н.Н.",
+    edu:"Свердловский колледж искусств и культуры",
     ft:"https://www.kinopoisk.ru/name/10395315/",
     video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA"
-  }, 
+  },
   {
     name:"Бызгу Фома",
     img:"photos/Бызгу.jpg",
     age:"30 лет",
     height:"165 см",
-    edu:"РГИСИ 2018, мастерская Г.М.Козлова",
+    edu:"РГИСИ 2018",
     ft:"https://casting.filmtoolz.ru/3161196/",
     video:"https://casting.filmtoolz.ru/3161196/?modal=actor#video"
   }
@@ -153,6 +199,7 @@ const data = {
 
 };
 
+// ДАТЫ
 const roleDates = {};
 for(let role in data){
   roleDates[role] = "апрель";
@@ -160,6 +207,17 @@ for(let role in data){
 
 const roleList = document.getElementById('roleList');
 
+// 👉 УТВЕРЖДЕННЫЕ — ПЕРВЫЕ
+const approvedDiv = document.createElement('div');
+approvedDiv.className='role-card';
+approvedDiv.innerHTML = `
+  <strong>✅ УТВЕРЖДЕННЫЕ</strong>
+  <div class="role-count">Всего: ${approved.length}</div>
+`;
+approvedDiv.onclick = openApproved;
+roleList.appendChild(approvedDiv);
+
+// роли
 for(let role in data){
   const div = document.createElement('div');
   div.className='role-card';
@@ -174,6 +232,35 @@ for(let role in data){
   roleList.appendChild(div);
 }
 
+// открыть утвержденных
+function openApproved(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('actorPage').style.display='none';
+  document.getElementById('approvedPage').style.display='block';
+
+  const container = document.getElementById('approvedContainer');
+  container.innerHTML='';
+
+  approved.forEach(actor=>{
+    const row = document.createElement('div');
+    row.className='approved-row';
+
+    row.innerHTML = `
+      <img src="${actor.img}">
+      <div class="approved-info">
+        <div><strong>${actor.role}</strong></div>
+        <div>${actor.name}</div>
+        <div>${actor.size}</div>
+        <div>${actor.contacts}</div>
+        <div>${actor.date}</div>
+      </div>
+    `;
+
+    container.appendChild(row);
+  });
+}
+
+// открыть роль
 function openRole(role){
   const list = data[role];
 
@@ -183,6 +270,7 @@ function openRole(role){
   }
 
   document.getElementById('home').style.display='none';
+  document.getElementById('approvedPage').style.display='none';
   document.getElementById('actorPage').style.display='block';
 
   const container = document.getElementById('actorContainer');
@@ -214,8 +302,10 @@ function openRole(role){
   });
 }
 
+// назад
 function goBack(){
   document.getElementById('actorPage').style.display='none';
+  document.getElementById('approvedPage').style.display='none';
   document.getElementById('home').style.display='block';
 }
 
