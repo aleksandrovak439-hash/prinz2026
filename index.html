@@ -46,7 +46,6 @@ h1 {
   overflow:hidden;
 }
 
-/* CAROUSEL */
 .carousel {
   display:flex;
   overflow-x:auto;
@@ -59,7 +58,6 @@ h1 {
   scroll-snap-align:center;
 }
 
-/* DOTS */
 .dots {
   display:flex;
   justify-content:center;
@@ -100,7 +98,6 @@ h1 {
   color:#888;
 }
 
-/* LISTS */
 .approved-container { padding:10px; }
 
 .approved-row {
@@ -152,9 +149,22 @@ h1 {
 <script>
 
 // 🔥 УТВЕРЖДЕННЫЕ
-const approved = [];
+const approved = [
+{
+  role:"Хозяйка Молли",
+  name:"Тая Федянина",
+  img:"photos/Федянина1.jpg",
+  size:"170 / 44 / 38"
+},
+{
+  role:"Дачник",
+  name:"Гульнев Дмитрий",
+  img:"photos/Гульнев1.jpg",
+  size:"175/48/41"
+}
+];
 
-// 🔥 ПРОСМОТРЕННЫЕ
+// 🔥 ПРОСМОТРЕННЫЕ (НИЧЕГО НЕ ПОТЕРЯНО + ДОБАВЛЕНЫ)
 const viewed = [
 {
     name:"Дружинин Павел",
@@ -183,13 +193,47 @@ const viewed = [
     age:"30 лет",
     size:"165 см",
     video:"https://casting.filmtoolz.ru/3161196/"
+},
+
+// добавленные
+{
+  name:"Герасименко Валерия",
+  img:"photos/Герсасименко.jpg",
+  age:"27 лет",
+  size:"165 / 40 / 36",
+  video:"https://disk.yandex.ru/i/r772WG3WRJVesA"
+},
+{
+  name:"Степанова Александра",
+  img:"photos/Степанова.jpg",
+  age:"27 лет",
+  size:"173 / 42-44 / 38",
+  video:"https://disk.yandex.ru/i/fxueivOjgjxzmg"
+},
+{
+  name:"Ткачева Катя",
+  img:"photos/Ткачева.jpg",
+  age:"33 года",
+  size:"178 / 42 / 40",
+  video:"https://disk.yandex.ru/i/NKGcTYsGO8IWbQ"
+},
+{
+  name:"Лыскова Евгения",
+  img:"photos/Лыскова.jpg",
+  size:"175 / 44 / 40",
+  video:"https://disk.yandex.ru/i/RbCxFTV-ajpHLA"
+},
+{
+  name:"Мария Перн",
+  img:"photos/Перн.jpg",
+  age:"36 лет",
+  size:"170",
+  video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848"
 }
 ];
 
-// ВСЕ ПЕРСОНАЖИ
+// ВСЕ ПЕРСОНАЖИ (удалены только 2 роли)
 const data = {
-
-"Дрессировщик":[],
 
 "Кудрявая девушка с пуделем":[
 {
@@ -202,56 +246,6 @@ const data = {
 ],
 
 "Толстый мужчина с английским бульдогом":[],
-
-"Хозяйка Молли":[
-{
-  name:"Герасименко Валерия",
-  img:"photos/Герсасименко.jpg",
-  img2:"photos/Герасименко1.jpg",
-  age:"27 лет",
-  size:"165 / 40 / 36",
-  video:"https://disk.yandex.ru/i/r772WG3WRJVesA"
-},
-{
-  name:"Степанова Александра",
-  img:"photos/Степанова.jpg",
-  img2:"photos/Степанова1.jpg",
-  age:"27 лет",
-  size:"173 / 42-44 / 38",
-  video:"https://disk.yandex.ru/i/fxueivOjgjxzmg"
-},
-{
-  name:"Ткачева Катя",
-  img:"photos/Ткачева.jpg",
-  img2:"photos/Ткачева1.jpg",
-  age:"33 года",
-  size:"178 / 42 / 40",
-  video:"https://disk.yandex.ru/i/NKGcTYsGO8IWbQ"
-},
-{
-  name:"Тая Федянина",
-  img:"photos/Федянина.jpg",
-  img2:"photos/Федянина1.jpg",
-  age:"27 лет",
-  size:"170 / 44 / 38",
-  video:"https://casting.filmtoolz.ru/4014928/?modal=actor#video-cp174325"
-},
-{
-  name:"Лыскова Евгения",
-  img:"photos/Лыскова.jpg",
-  img2:"photos/Лыскова1.jpg",
-  size:"175 / 44 / 40",
-  video:"https://disk.yandex.ru/i/RbCxFTV-ajpHLA"
-},
-{
-  name:"Мария Перн",
-  img:"photos/Перн.jpg",
-  img2:"photos/Перн1.jpg",
-  age:"36 лет",
-  size:"170",
-  video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848"
-}
-],
 
 "Ольга Львовна":[],
 "Ведущий":[],
@@ -293,6 +287,55 @@ for(let role in data){
 
   div.onclick=()=>openRole(role);
   roleList.appendChild(div);
+}
+
+// утвержденные
+function openApproved(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('approvedPage').style.display='block';
+
+  const container=document.getElementById('approvedContainer');
+  container.innerHTML='';
+
+  approved.forEach(a=>{
+    const row=document.createElement('div');
+    row.className='approved-row';
+
+    row.innerHTML=`
+      <img src="${a.img}">
+      <div class="approved-info">
+        <div><strong>${a.role}</strong></div>
+        <div>${a.name}</div>
+        <div>${a.size}</div>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+// просмотренные
+function openViewed(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('viewedPage').style.display='block';
+
+  const container=document.getElementById('viewedContainer');
+  container.innerHTML='';
+
+  viewed.forEach(a=>{
+    const row=document.createElement('div');
+    row.className='approved-row';
+
+    row.innerHTML=`
+      <img src="${a.img}">
+      <div class="approved-info">
+        <div><strong>${a.name}</strong></div>
+        <div>Возраст: ${a.age || '-'}</div>
+        <div>Размеры: ${a.size || '-'}</div>
+        ${a.video?`<button class="btn" onclick="window.open('${a.video}')">Видео</button>`:''}
+      </div>
+    `;
+    container.appendChild(row);
+  });
 }
 
 // роли
@@ -338,41 +381,6 @@ function openRole(role){
   });
 }
 
-// просмотренные
-function openViewed(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('viewedPage').style.display='block';
-
-  const container=document.getElementById('viewedContainer');
-  container.innerHTML='';
-
-  viewed.forEach(a=>{
-    const row=document.createElement('div');
-    row.className='approved-row';
-
-    row.innerHTML=`
-      <img src="${a.img}">
-      <div class="approved-info">
-        <div><strong>${a.name}</strong></div>
-        <div>Возраст: ${a.age || '-'}</div>
-        <div>Размеры: ${a.size || '-'}</div>
-        ${a.video?`<button class="btn" onclick="window.open('${a.video}')">Видео</button>`:''}
-      </div>
-    `;
-    container.appendChild(row);
-  });
-}
-
-// утвержденные
-function openApproved(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('approvedPage').style.display='block';
-
-  const container=document.getElementById('approvedContainer');
-  container.innerHTML='Пусто';
-}
-
-// назад
 function goBack(){
   document.getElementById('actorPage').style.display='none';
   document.getElementById('approvedPage').style.display='none';
