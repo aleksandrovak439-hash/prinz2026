@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Принц — Кастинг</title>
+<title>Принц — второй план</title>
 <style>
   * {
     margin: 0;
@@ -19,7 +19,6 @@
     padding: 0 0 24px 0;
   }
 
-  /* общие контейнеры */
   .app-header {
     padding: 20px 16px 8px 16px;
     border-bottom: 1px solid rgba(255,255,255,0.05);
@@ -61,12 +60,10 @@
     margin: 12px 16px 0 16px;
   }
 
-  .back-button:hover {
-    background: rgba(255,255,255,0.15);
+  .back-button:active {
     transform: scale(0.97);
   }
 
-  /* список ролей (главный) */
   .role-list {
     padding: 8px 16px;
     display: flex;
@@ -110,7 +107,6 @@
     font-size: 14px;
   }
 
-  /* сетка актеров (две колонки, на мобильных одна) */
   .actor-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -125,7 +121,6 @@
     }
   }
 
-  /* карточка актера */
   .actor-card {
     background: #121212;
     border-radius: 28px;
@@ -137,7 +132,6 @@
     flex-direction: column;
   }
 
-  /* фото-блок с соотношением 3:5 */
   .photo-block {
     width: 100%;
     background: #1e1e1e;
@@ -161,7 +155,6 @@
     transform: scale(1.02);
   }
 
-  /* карусель (горизонтальный скролл) с сохранением 3:5 для каждого слайда */
   .carousel-slider {
     display: flex;
     overflow-x: auto;
@@ -175,12 +168,10 @@
   .carousel-slider::-webkit-scrollbar {
     height: 4px;
   }
-
   .carousel-slider::-webkit-scrollbar-track {
     background: #2a2a2a;
     border-radius: 10px;
   }
-
   .carousel-slider::-webkit-scrollbar-thumb {
     background: #ff3b30;
     border-radius: 10px;
@@ -201,7 +192,6 @@
     cursor: pointer;
   }
 
-  /* информация под фото */
   .actor-info {
     padding: 14px 12px 16px 12px;
     display: flex;
@@ -261,7 +251,6 @@
     background: #e0352a;
   }
 
-  /* утвержденные и просмотренные (списки) */
   .approved-container, .viewed-container {
     padding: 16px;
     display: flex;
@@ -329,7 +318,7 @@
 
   .contacts-btn {
     background: #2c2c2e;
-    margin-left: 8px;
+    margin-left: 0;
   }
 
   .contacts-btn:active {
@@ -351,7 +340,6 @@
     font-size: 16px;
   }
 
-  /* МОДАЛЬНЫЕ ОКНА (лайтбокс для фото и контакты) */
   .modal {
     display: none;
     position: fixed;
@@ -438,10 +426,6 @@
     background: #ff3b30;
   }
 
-  .badge-icon {
-    font-size: 14px;
-  }
-
   footer {
     text-align: center;
     font-size: 11px;
@@ -454,7 +438,7 @@
 
 <div id="home">
   <div class="app-header">
-    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">кастинг‑проект</span></h1>
+    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">второй план</span></h1>
   </div>
   <div class="role-list" id="roleList"></div>
   <footer>Актёрский состав • презентация</footer>
@@ -475,7 +459,6 @@
   <div class="viewed-container" id="viewedContainer"></div>
 </div>
 
-<!-- Модальное окно для фото -->
 <div id="photoModal" class="modal" onclick="closePhotoModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
     <span class="close-modal" onclick="closePhotoModal()">&times;</span>
@@ -483,7 +466,6 @@
   </div>
 </div>
 
-<!-- Модальное окно для контактов -->
 <div id="contactsModal" class="modal" onclick="closeContactsModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
     <span class="close-modal" onclick="closeContactsModal()">&times;</span>
@@ -492,13 +474,13 @@
 </div>
 
 <script>
-  // ---------- УТВЕРЖДЕННЫЕ С КОНТАКТАМИ (расширенные данные) ----------
+  // ---------- УТВЕРЖДЕННЫЕ (без видео) ----------
   const approved = [
     { 
-      role:"Хозяйка Молли", 
-      name:"Тая Федянина", 
-      img:"photos/Федянина1.jpg", 
-      size:"170 / 44 / 38",
+      role: "Хозяйка Молли", 
+      name: "Тая Федянина", 
+      img: "photos/Федянина1.jpg", 
+      size: "170 / 44 / 38",
       contacts: {
         phone1: "+7 985 199 06 86",
         agent: "Натали Дале",
@@ -507,47 +489,56 @@
       }
     },
     { 
-      role:"Дачник", 
-      name:"Гульнев Дмитрий", 
-      img:"photos/Гульнев1.jpg", 
-      size:"175/48/41",
+      role: "Дачник", 
+      name: "Гульнев Дмитрий", 
+      img: "photos/Гульнев1.jpg", 
+      size: "175/48/41",
       contacts: {
         agent: "Наталия Торлакян",
         agency: "Созвездие Нева",
         phone: "+7 921 913 39 82",
         email: "torlik@mail.ru"
       }
+    },
+    { 
+      role: "Ольга Львовна", 
+      name: "Елена Свирко", 
+      img: "photos/Свирко.jpg", 
+      size: "161/44/36",
+      contacts: {
+        phone: "+7 911 136 4565"
+      }
+      // video поле удалено, в утверждённых кнопки видео не будет
     }
   ];
 
-  // ПРОСМОТРЕННЫЕ (без изменений)
+  // ---------- ПРОСМОТРЕННЫЕ (все остальные из Ольги Львовны + старые) ----------
   const viewed = [
-    { name:"Дружинин Павел", img:"photos/Дружинин.jpg", age:"39 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3119201/" },
-    { name:"Шихалеев Сергей", img:"photos/Шихалеев.jpg", age:"36 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3566324/" },
-    { name:"Опря Макс", img:"photos/Опря.jpg", age:"27 лет", size:"165 см", video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
-    { name:"Бызгу Фома", img:"photos/Бызгу.jpg", age:"30 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3161196/" },
-    { name:"Герасименко Валерия", img:"photos/Герсасименко.jpg", age:"27 лет", size:"165 / 40 / 36", video:"https://disk.yandex.ru/i/r772WG3WRJVesA" },
-    { name:"Степанова Александра", img:"photos/Степанова.jpg", age:"27 лет", size:"173 / 42-44 / 38", video:"https://disk.yandex.ru/i/fxueivOjgjxzmg" },
-    { name:"Ткачева Катя", img:"photos/Ткачева.jpg", age:"33 года", size:"178 / 42 / 40", video:"https://disk.yandex.ru/i/NKGcTYsGO8IWbQ" },
-    { name:"Лыскова Евгения", img:"photos/Лыскова.jpg", size:"175 / 44 / 40", video:"https://disk.yandex.ru/i/RbCxFTV-ajpHLA" },
-    { name:"Мария Перн", img:"photos/Перн.jpg", age:"36 лет", size:"170", video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" }
+    // исходные просмотренные
+    { name: "Дружинин Павел", img: "photos/Дружинин.jpg", age: "39 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3119201/" },
+    { name: "Шихалеев Сергей", img: "photos/Шихалеев.jpg", age: "36 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3566324/" },
+    { name: "Опря Макс", img: "photos/Опря.jpg", age: "27 лет", size: "165 см", video: "https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
+    { name: "Бызгу Фома", img: "photos/Бызгу.jpg", age: "30 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3161196/" },
+    { name: "Герасименко Валерия", img: "photos/Герсасименко.jpg", age: "27 лет", size: "165 / 40 / 36", video: "https://disk.yandex.ru/i/r772WG3WRJVesA" },
+    { name: "Степанова Александра", img: "photos/Степанова.jpg", age: "27 лет", size: "173 / 42-44 / 38", video: "https://disk.yandex.ru/i/fxueivOjgjxzmg" },
+    { name: "Ткачева Катя", img: "photos/Ткачева.jpg", age: "33 года", size: "178 / 42 / 40", video: "https://disk.yandex.ru/i/NKGcTYsGO8IWbQ" },
+    { name: "Лыскова Евгения", img: "photos/Лыскова.jpg", size: "175 / 44 / 40", video: "https://disk.yandex.ru/i/RbCxFTV-ajpHLA" },
+    { name: "Мария Перн", img: "photos/Перн.jpg", age: "36 лет", size: "170", video: "https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" },
+    // бывшие кандидаты на роль Ольга Львовна (кроме Елены Свирко)
+    { name: "Орлова Людмила", img: "photos/Орлова.jpg", age: "47 лет", size: "164/44/37", video: "https://disk.yandex.com/i/koblFHKk9nzJug" },
+    { name: "Медведева Лия", img: "photos/Медведева.jpg", age: "57 лет", video: "https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
+    { name: "Ольга Кот", img: "photos/Кот.jpg", video: "https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
+    { name: "Минязова Аделина", img: "photos/Минязова.jpg", age: "47 лет", size: "—", video: "https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
+    { name: "Мария Клешнина", img: "photos/Клешнина.jpg", video: "https://disk.yandex.ru/i/HOamNPTs4WT-2Q" },
+    { name: "Сдобникова Лариса", img: "photos/Сдобникова.jpg", video: "https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
   ];
 
-  // DATA для ролей (без изменений)
+  // ---------- РОЛИ (Ольга Львовна полностью удалена) ----------
   const data = {
     "Кудрявая девушка с пуделем": [
-      { name:"Зарбалиева Сабина", img:"photos/Сабина.jpg", img2:"photos/пудельМакс.jpg", size:"171/44", video:"https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
+      { name: "Зарбалиева Сабина", img: "photos/Сабина.jpg", img2: "photos/пудельМакс.jpg", size: "171/44", video: "https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
     ],
     "Толстый мужчина с английским бульдогом": [],
-    "Ольга Львовна": [
-      { name:"Орлова Людмила", img:"photos/Орлова.jpg", age:"47 лет", size:"164/44/37", video:"https://disk.yandex.com/i/koblFHKk9nzJug" },
-      { name:"Медведева Лия", img:"photos/Медведева.jpg", age:"57 лет", video:"https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
-      { name:"Ольга Кот", img:"photos/Кот.jpg", video:"https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
-      { name:"Минязова Аделина", img:"photos/Минязова.jpg", img2:"photos/Минязова1.jpg", age:"47 лет", video:"https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
-      { name:"Свирко Елена", img:"photos/Свирко.jpg", age:"58 лет", video:"https://vk.com/away.php?to=https%3A%2F%2Fdisk.yandex.ru%2Fd%2Fy0-1yanQbw3IsA&utf=1" },
-      { name:"Мария Клешнина", img:"photos/Клешнина.jpg", img2:"photos/Клешнина1.jpg", video:"https://disk.yandex.ru/i/HOamNPTs4WT-2Q" },
-      { name:"Сдобникова Лариса", img:"photos/Сдобникова.jpg", img2:"photos/Сдобникова1.jpg", video:"https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
-    ],
     "Ведущий": [],
     "Охранник": [],
     "Фотограф": [],
@@ -573,16 +564,9 @@
 
   function buildMetaBlock(actor) {
     let metaHtml = '';
-    if (actor.age) {
-      metaHtml += `<span>📅 ${actor.age}</span>`;
-    }
-    if (actor.size) {
-      metaHtml += `<span>📏 ${actor.size}</span>`;
-    }
-    if (metaHtml) {
-      return `<div class="meta">${metaHtml}</div>`;
-    }
-    return '';
+    if (actor.age) metaHtml += `<span>📅 ${actor.age}</span>`;
+    if (actor.size) metaHtml += `<span>📏 ${actor.size}</span>`;
+    return metaHtml ? `<div class="meta">${metaHtml}</div>` : '';
   }
 
   function renderPhotoBlock(actor) {
@@ -604,7 +588,6 @@
     }
   }
 
-  // модалки фото
   function openFullImage(src) {
     const modal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalPhotoImg');
@@ -618,12 +601,10 @@
     document.getElementById('modalPhotoImg').src = '';
   }
 
-  // контакты модал
   function showContacts(actor) {
     const modal = document.getElementById('contactsModal');
     const bodyDiv = document.getElementById('contactsModalBody');
     let contactsHtml = `<h3>📞 ${escapeHtml(actor.name)}</h3>`;
-    
     if (actor.contacts) {
       const c = actor.contacts;
       if (c.phone1) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone1)}</strong></p>`;
@@ -644,7 +625,6 @@
     document.getElementById('contactsModal').style.display = 'none';
   }
 
-  // открытие роли (актеры)
   function openRole(role) {
     const actorsList = data[role];
     document.getElementById('home').style.display = 'none';
@@ -663,8 +643,7 @@
       const videoBtn = actor.video 
         ? `<button class="video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Смотреть видео</button>` 
         : '';
-
-      const card = `
+      container.innerHTML += `
         <div class="actor-card">
           ${photoHtml}
           <div class="actor-info">
@@ -674,7 +653,6 @@
           </div>
         </div>
       `;
-      container.innerHTML += card;
     });
   }
 
@@ -685,24 +663,19 @@
     document.getElementById('home').style.display = 'block';
   }
 
-  // открыть просмотренные
   function openViewed() {
     document.getElementById('home').style.display = 'none';
     document.getElementById('viewedPage').style.display = 'block';
     const container = document.getElementById('viewedContainer');
     container.innerHTML = '';
-
     if (!viewed.length) {
       container.innerHTML = '<div class="empty-message">Нет просмотренных</div>';
       return;
     }
-
     viewed.forEach(actor => {
-      const hasVideo = actor.video ? true : false;
-      const videoButton = hasVideo 
+      const videoButton = actor.video 
         ? `<button class="small-video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Видео</button>`
         : '';
-
       container.innerHTML += `
         <div class="approved-row">
           <img src="${actor.img}" alt="${actor.name}" loading="lazy" onclick="openFullImage('${actor.img}')">
@@ -717,21 +690,17 @@
     });
   }
 
-  // открыть утвержденных (с кнопкой контакты и кликабельным фото)
   function openApproved() {
     document.getElementById('home').style.display = 'none';
     document.getElementById('approvedPage').style.display = 'block';
     const container = document.getElementById('approvedContainer');
     container.innerHTML = '';
-
     if (!approved.length) {
       container.innerHTML = '<div class="empty-message">Нет утвержденных</div>';
       return;
     }
-
     approved.forEach(item => {
-      // Функция для показа контактов замыканием
-      const contactsHandler = () => showContacts(item);
+      // в утвержденных кнопка видео отсутствует по требованию
       container.innerHTML += `
         <div class="approved-row">
           <img src="${item.img}" alt="${item.name}" loading="lazy" onclick="openFullImage('${item.img}')">
@@ -746,7 +715,6 @@
         </div>
       `;
     });
-    // регистрируем глобальную функцию для контактов, чтобы избежать проблем с кавычками
     window.showContactsForActor = function(actorObj) {
       showContacts(actorObj);
     };
@@ -760,7 +728,6 @@
     { name: '✅ УТВЕРЖДЕННЫЕ', handler: openApproved, emoji: '⭐' },
     { name: '👁 ПРОСМОТРЕННЫЕ', handler: openViewed, emoji: '👀' }
   ];
-
   specials.forEach(spec => {
     const card = document.createElement('div');
     card.className = 'role-card';
@@ -778,7 +745,6 @@
     roleListDiv.appendChild(card);
   }
 
-  // экспорт глобальных функций
   window.goBack = goBack;
   window.openApproved = openApproved;
   window.openViewed = openViewed;
