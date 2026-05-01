@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Принц — ВТОРОЙ ПЛАН</title>
+<title>Принц — Кастинг</title>
 <style>
   * {
     margin: 0;
@@ -154,6 +154,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.4s ease;
+    cursor: pointer;
   }
 
   .actor-card:hover .single-photo img {
@@ -197,6 +198,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    cursor: pointer;
   }
 
   /* информация под фото */
@@ -285,6 +287,12 @@
     border-radius: 18px;
     background: #2c2c2e;
     box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .approved-row img:active {
+    transform: scale(0.96);
   }
 
   .approved-info {
@@ -303,7 +311,7 @@
     margin-top: 4px;
   }
 
-  .small-video-btn {
+  .small-video-btn, .contacts-btn {
     background: #ff3b30;
     border: none;
     border-radius: 40px;
@@ -319,6 +327,23 @@
     transition: 0.2s;
   }
 
+  .contacts-btn {
+    background: #2c2c2e;
+    margin-left: 8px;
+  }
+
+  .contacts-btn:active {
+    background: #3a3a3c;
+    transform: scale(0.96);
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
   .empty-message {
     text-align: center;
     color: #6c6c70;
@@ -326,7 +351,93 @@
     font-size: 16px;
   }
 
-  /* доп. стили */
+  /* МОДАЛЬНЫЕ ОКНА (лайтбокс для фото и контакты) */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+  }
+
+  .modal-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 28px;
+    overflow: auto;
+    background: #121212;
+    padding: 0;
+    position: relative;
+    cursor: default;
+  }
+
+  .modal-img {
+    width: auto;
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    display: block;
+    border-radius: 24px;
+  }
+
+  .modal-contacts {
+    background: #1c1c1e;
+    border-radius: 32px;
+    padding: 28px 24px;
+    width: 320px;
+    max-width: 85vw;
+    color: white;
+    text-align: left;
+  }
+
+  .modal-contacts h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+
+  .modal-contacts p {
+    margin: 12px 0;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #ddd;
+    word-break: break-word;
+  }
+
+  .modal-contacts strong {
+    color: #ff3b30;
+    font-weight: 600;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    transition: 0.2s;
+  }
+
+  .close-modal:hover {
+    background: #ff3b30;
+  }
+
   .badge-icon {
     font-size: 14px;
   }
@@ -343,7 +454,7 @@
 
 <div id="home">
   <div class="app-header">
-    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">второй план</span></h1>
+    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">кастинг‑проект</span></h1>
   </div>
   <div class="role-list" id="roleList"></div>
   <footer>Актёрский состав • презентация</footer>
@@ -364,13 +475,52 @@
   <div class="viewed-container" id="viewedContainer"></div>
 </div>
 
+<!-- Модальное окно для фото -->
+<div id="photoModal" class="modal" onclick="closePhotoModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-modal" onclick="closePhotoModal()">&times;</span>
+    <img id="modalPhotoImg" class="modal-img" src="" alt="полноразмерное фото">
+  </div>
+</div>
+
+<!-- Модальное окно для контактов -->
+<div id="contactsModal" class="modal" onclick="closeContactsModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <span class="close-modal" onclick="closeContactsModal()">&times;</span>
+    <div id="contactsModalBody" class="modal-contacts"></div>
+  </div>
+</div>
+
 <script>
-  // ---------- ДАННЫЕ (НЕ ИЗМЕНЕНЫ) ----------
+  // ---------- УТВЕРЖДЕННЫЕ С КОНТАКТАМИ (расширенные данные) ----------
   const approved = [
-    { role:"Хозяйка Молли", name:"Тая Федянина", img:"photos/Федянина1.jpg", size:"170 / 44 / 38" },
-    { role:"Дачник", name:"Гульнев Дмитрий", img:"photos/Гульнев1.jpg", size:"175/48/41" }
+    { 
+      role:"Хозяйка Молли", 
+      name:"Тая Федянина", 
+      img:"photos/Федянина1.jpg", 
+      size:"170 / 44 / 38",
+      contacts: {
+        phone1: "+7 985 199 06 86",
+        agent: "Натали Дале",
+        agentPhone: "+7 903 612 24 99",
+        email: "7037100@mail.ru"
+      }
+    },
+    { 
+      role:"Дачник", 
+      name:"Гульнев Дмитрий", 
+      img:"photos/Гульнев1.jpg", 
+      size:"175/48/41",
+      contacts: {
+        agent: "Наталия Торлакян",
+        agency: "Созвездие Нева",
+        phone: "+7 921 913 39 82",
+        email: "torlik@mail.ru"
+      }
+    }
   ];
 
+  // ПРОСМОТРЕННЫЕ (без изменений)
   const viewed = [
     { name:"Дружинин Павел", img:"photos/Дружинин.jpg", age:"39 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3119201/" },
     { name:"Шихалеев Сергей", img:"photos/Шихалеев.jpg", age:"36 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3566324/" },
@@ -383,6 +533,7 @@
     { name:"Мария Перн", img:"photos/Перн.jpg", age:"36 лет", size:"170", video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" }
   ];
 
+  // DATA для ролей (без изменений)
   const data = {
     "Кудрявая девушка с пуделем": [
       { name:"Зарбалиева Сабина", img:"photos/Сабина.jpg", img2:"photos/пудельМакс.jpg", size:"171/44", video:"https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
@@ -392,7 +543,7 @@
       { name:"Орлова Людмила", img:"photos/Орлова.jpg", age:"47 лет", size:"164/44/37", video:"https://disk.yandex.com/i/koblFHKk9nzJug" },
       { name:"Медведева Лия", img:"photos/Медведева.jpg", age:"57 лет", video:"https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
       { name:"Ольга Кот", img:"photos/Кот.jpg", video:"https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
-      { name:"Минязова Аделина", img:"photos/Минязова.jpg", age:"47 лет", video:"https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
+      { name:"Минязова Аделина", img:"photos/Минязова.jpg", img2:"photos/Минязова1.jpg", age:"47 лет", video:"https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
       { name:"Свирко Елена", img:"photos/Свирко.jpg", age:"58 лет", video:"https://vk.com/away.php?to=https%3A%2F%2Fdisk.yandex.ru%2Fd%2Fy0-1yanQbw3IsA&utf=1" },
       { name:"Мария Клешнина", img:"photos/Клешнина.jpg", img2:"photos/Клешнина1.jpg", video:"https://disk.yandex.ru/i/HOamNPTs4WT-2Q" },
       { name:"Сдобникова Лариса", img:"photos/Сдобникова.jpg", img2:"photos/Сдобникова1.jpg", video:"https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
@@ -410,6 +561,16 @@
   };
 
   // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
   function buildMetaBlock(actor) {
     let metaHtml = '';
     if (actor.age) {
@@ -424,29 +585,66 @@
     return '';
   }
 
-  // Генерация блока фото (одиночное 3:5 или карусель для двух фото)
   function renderPhotoBlock(actor) {
     if (actor.img2) {
-      // карусель с 2 слайдами (каждый слайд имеет пропорцию 3/5)
       return `
         <div class="photo-block">
           <div class="carousel-slider">
-            <div class="slide"><img src="${actor.img}" alt="фото 1" loading="lazy"></div>
-            <div class="slide"><img src="${actor.img2}" alt="фото 2" loading="lazy"></div>
+            <div class="slide"><img src="${actor.img}" alt="фото 1" loading="lazy" onclick="openFullImage('${actor.img}')"></div>
+            <div class="slide"><img src="${actor.img2}" alt="фото 2" loading="lazy" onclick="openFullImage('${actor.img2}')"></div>
           </div>
         </div>
       `;
     } else {
-      // одно фото 3:5
       return `
         <div class="photo-block single-photo">
-          <img src="${actor.img}" alt="${actor.name}" loading="lazy">
+          <img src="${actor.img}" alt="${actor.name}" loading="lazy" onclick="openFullImage('${actor.img}')">
         </div>
       `;
     }
   }
 
-  // открытие конкретной роли (актеры)
+  // модалки фото
+  function openFullImage(src) {
+    const modal = document.getElementById('photoModal');
+    const modalImg = document.getElementById('modalPhotoImg');
+    modalImg.src = src;
+    modal.style.display = 'flex';
+  }
+
+  function closePhotoModal(event) {
+    if (event && event.target !== event.currentTarget && event.target.className !== 'close-modal') return;
+    document.getElementById('photoModal').style.display = 'none';
+    document.getElementById('modalPhotoImg').src = '';
+  }
+
+  // контакты модал
+  function showContacts(actor) {
+    const modal = document.getElementById('contactsModal');
+    const bodyDiv = document.getElementById('contactsModalBody');
+    let contactsHtml = `<h3>📞 ${escapeHtml(actor.name)}</h3>`;
+    
+    if (actor.contacts) {
+      const c = actor.contacts;
+      if (c.phone1) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone1)}</strong></p>`;
+      if (c.phone) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone)}</strong></p>`;
+      if (c.agent) contactsHtml += `<p>🎭 Агент: ${escapeHtml(c.agent)}</p>`;
+      if (c.agentPhone) contactsHtml += `<p>📞 Агент: ${escapeHtml(c.agentPhone)}</p>`;
+      if (c.agency) contactsHtml += `<p>🏢 Агентство: ${escapeHtml(c.agency)}</p>`;
+      if (c.email) contactsHtml += `<p>✉️ Email: <strong>${escapeHtml(c.email)}</strong></p>`;
+    } else {
+      contactsHtml += `<p>Контакты не указаны</p>`;
+    }
+    bodyDiv.innerHTML = contactsHtml;
+    modal.style.display = 'flex';
+  }
+
+  function closeContactsModal(event) {
+    if (event && event.target !== event.currentTarget && event.target.className !== 'close-modal') return;
+    document.getElementById('contactsModal').style.display = 'none';
+  }
+
+  // открытие роли (актеры)
   function openRole(role) {
     const actorsList = data[role];
     document.getElementById('home').style.display = 'none';
@@ -480,20 +678,6 @@
     });
   }
 
-  // простой защитник от XSS (не ломает данные)
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-      return c;
-    });
-  }
-
-  // назад на главную
   function goBack() {
     document.getElementById('actorPage').style.display = 'none';
     document.getElementById('approvedPage').style.display = 'none';
@@ -501,7 +685,7 @@
     document.getElementById('home').style.display = 'block';
   }
 
-  // открыть просмотренные (с кнопками видео)
+  // открыть просмотренные
   function openViewed() {
     document.getElementById('home').style.display = 'none';
     document.getElementById('viewedPage').style.display = 'block';
@@ -521,7 +705,7 @@
 
       container.innerHTML += `
         <div class="approved-row">
-          <img src="${actor.img}" alt="${actor.name}" loading="lazy">
+          <img src="${actor.img}" alt="${actor.name}" loading="lazy" onclick="openFullImage('${actor.img}')">
           <div class="approved-info">
             <strong>${escapeHtml(actor.name)}</strong>
             <div>${actor.age || '—'}</div>
@@ -533,7 +717,7 @@
     });
   }
 
-  // открыть утвержденных (без видео, только данные)
+  // открыть утвержденных (с кнопкой контакты и кликабельным фото)
   function openApproved() {
     document.getElementById('home').style.display = 'none';
     document.getElementById('approvedPage').style.display = 'block';
@@ -546,24 +730,32 @@
     }
 
     approved.forEach(item => {
+      // Функция для показа контактов замыканием
+      const contactsHandler = () => showContacts(item);
       container.innerHTML += `
         <div class="approved-row">
-          <img src="${item.img}" alt="${item.name}" loading="lazy">
+          <img src="${item.img}" alt="${item.name}" loading="lazy" onclick="openFullImage('${item.img}')">
           <div class="approved-info">
             <strong>${escapeHtml(item.role)}</strong>
             <div>${escapeHtml(item.name)}</div>
             <div>${item.size || ''}</div>
+            <div class="btn-group">
+              <button class="contacts-btn" onclick="window.showContactsForActor(${JSON.stringify(item).replace(/"/g, '&quot;')})">📋 Контакты</button>
+            </div>
           </div>
         </div>
       `;
     });
+    // регистрируем глобальную функцию для контактов, чтобы избежать проблем с кавычками
+    window.showContactsForActor = function(actorObj) {
+      showContacts(actorObj);
+    };
   }
 
-  // ---------- построение главного меню (роли + утвержденные/просмотренные) ----------
+  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ ----------
   const roleListDiv = document.getElementById('roleList');
   roleListDiv.innerHTML = '';
 
-  // спец-блоки
   const specials = [
     { name: '✅ УТВЕРЖДЕННЫЕ', handler: openApproved, emoji: '⭐' },
     { name: '👁 ПРОСМОТРЕННЫЕ', handler: openViewed, emoji: '👀' }
@@ -577,7 +769,6 @@
     roleListDiv.appendChild(card);
   });
 
-  // обычные роли из data
   for (let role in data) {
     const count = data[role].length;
     const card = document.createElement('div');
@@ -587,11 +778,15 @@
     roleListDiv.appendChild(card);
   }
 
-  // экспорт функций в глобальный скоуп (для inline onclick)
+  // экспорт глобальных функций
   window.goBack = goBack;
   window.openApproved = openApproved;
   window.openViewed = openViewed;
   window.openRole = openRole;
+  window.openFullImage = openFullImage;
+  window.closePhotoModal = closePhotoModal;
+  window.closeContactsModal = closeContactsModal;
+  window.showContacts = showContacts;
 </script>
 </body>
 </html>
