@@ -15,8 +15,8 @@ body {
 
 h1 {
   text-align:center;
-  margin:20px 0;
-  font-size:22px;
+  margin:16px 0;
+  font-size:20px;
 }
 
 .role-list { padding:10px; }
@@ -24,12 +24,12 @@ h1 {
 .role-card {
   background:#1c1c1e;
   margin-bottom:10px;
-  padding:15px;
-  border-radius:16px;
+  padding:14px;
+  border-radius:14px;
 }
 
 .role-count {
-  color:#aaa;
+  color:#888;
   font-size:12px;
   margin-top:4px;
 }
@@ -37,60 +37,52 @@ h1 {
 .actor-container {
   padding:10px;
   display:grid;
-  gap:15px;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
 }
 
 .actor-card {
   background:#1c1c1e;
-  border-radius:16px;
+  border-radius:14px;
   overflow:hidden;
+}
+
+.actor-card img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
 }
 
 .carousel {
   display:flex;
   overflow-x:auto;
-  scroll-snap-type:x mandatory;
 }
 
 .carousel img {
   width:100%;
+  height:220px;
   flex-shrink:0;
-  scroll-snap-align:center;
+  object-fit:cover;
 }
 
-.dots {
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  margin:6px 0 10px;
+.actor-info {
+  padding:10px;
 }
-
-.dot {
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#444;
-}
-
-.dot.active {
-  background:#ff3b30;
-}
-
-.actor-info { padding:12px; }
 
 .name {
-  font-size:17px;
+  font-size:14px;
   font-weight:600;
 }
 
 .btn {
-  margin-top:10px;
-  padding:12px;
+  margin-top:8px;
+  padding:10px;
   background:#ff3b30;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   width:100%;
   color:white;
+  font-size:13px;
 }
 
 .back {
@@ -103,11 +95,10 @@ h1 {
 .approved-row {
   display:flex;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:10px;
   background:#1c1c1e;
   padding:10px;
   border-radius:12px;
-  align-items:flex-start;
 }
 
 .approved-row img {
@@ -119,7 +110,6 @@ h1 {
 
 .approved-info {
   font-size:13px;
-  line-height:1.4;
 }
 </style>
 </head>
@@ -148,56 +138,21 @@ h1 {
 
 <script>
 
-// 🔥 УТВЕРЖДЕННЫЕ
+// УТВЕРЖДЕННЫЕ
 const approved = [
-{
-  role:"Хозяйка Молли",
-  name:"Тая Федянина",
-  img:"photos/Федянина1.jpg",
-  size:"170 / 44 / 38"
-},
-{
-  role:"Дачник",
-  name:"Гульнев Дмитрий",
-  img:"photos/Гульнев1.jpg",
-  size:"175/48/41"
-}
+{ role:"Хозяйка Молли", name:"Тая Федянина", img:"photos/Федянина1.jpg", size:"170 / 44 / 38" },
+{ role:"Дачник", name:"Гульнев Дмитрий", img:"photos/Гульнев1.jpg", size:"175/48/41" }
 ];
 
-// 🔥 ПРОСМОТРЕННЫЕ (НИЧЕГО НЕ ПОТЕРЯНО + ДОБАВЛЕНЫ)
+// ПРОСМОТРЕННЫЕ
 const viewed = [
-{
-    name:"Дружинин Павел",
-    img:"photos/Дружинин.jpg",
-    age:"39 лет",
-    size:"165 см",
-    video:"https://casting.filmtoolz.ru/3119201/"
-},
-{
-    name:"Шихалеев Сергей",
-    img:"photos/Шихалеев.jpg",
-    age:"36 лет",
-    size:"165 см",
-    video:"https://casting.filmtoolz.ru/3566324/"
-},
-{
-    name:"Опря Макс",
-    img:"photos/Опря.jpg",
-    age:"27 лет",
-    size:"165 см",
-    video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA"
-},
-{
-    name:"Бызгу Фома",
-    img:"photos/Бызгу.jpg",
-    age:"30 лет",
-    size:"165 см",
-    video:"https://casting.filmtoolz.ru/3161196/"
-},
+{ name:"Дружинин Павел", img:"photos/Дружинин.jpg", age:"39 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3119201/" },
+{ name:"Шихалеев Сергей", img:"photos/Шихалеев.jpg", age:"36 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3566324/" },
+{ name:"Опря Макс", img:"photos/Опря.jpg", age:"27 лет", size:"165 см", video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
+{ name:"Бызгу Фома", img:"photos/Бызгу.jpg", age:"30 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3161196/" },
 
-// добавленные
-{
-  name:"Герасименко Валерия",
+// добавлены 
+{ name:"Герасименко Валерия",
   img:"photos/Герсасименко.jpg",
   age:"27 лет",
   size:"165 / 40 / 36",
@@ -232,74 +187,25 @@ const viewed = [
 }
 ];
 
-// ВСЕ ПЕРСОНАЖИ (удалены только 2 роли)
+// DATA
 const data = {
 
 "Кудрявая девушка с пуделем":[
-{
-  name:"Зарбалиева Сабина",
-  img:"photos/Сабина.jpg",
-  img2:"photos/пудельМакс.jpg",
-  size:"171/44",
-  video:"https://disk.yandex.ru/d/XcqkLtlzmqzW2w"
-}
+{ name:"Зарбалиева Сабина", img:"photos/Сабина.jpg", img2:"photos/пудельМакс.jpg", size:"171/44", video:"https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
 ],
 
 "Толстый мужчина с английским бульдогом":[],
 
 "Ольга Львовна":[
-  
-{
-  name:"Орлова Людмила",
-  img:"photos/Орлова.jpg",
-  age:"47 лет",
-  size:"164/44/37",
-  video:"https://disk.yandex.com/i/koblFHKk9nzJug",
-  video2:"https://disk.yandex.com/i/T_RkvB8DAiTTcg"
-},
-{
-  name:"Медведева Лия",
-  img:"photos/Медведева.jpg",
-  age:"57 лет",
-  video:"https://disk.yandex.ru/i/lkJKc6DlnHBZtQ",
-  video2:"https://casting.filmtoolz.ru/3331111/"
-},
-{
-  name:"Ольга Кот",
-  img:"photos/Кот.jpg",
-  video:"https://disk.yandex.ru/i/wvs5pVCrg-BXuQ",
-  video2:"https://disk.yandex.ru/i/EUk-E0BPNto2gw"
-},
-{
-  name:"Минязова Аделина",
-  img:"photos/Минязова.jpg",
-  img2:"photos/Минязова1.jpg",
-  age:"47 лет",
-  video:"https://disk.yandex.ru/i/K5KXXge9DD_Z-w",
-  video2:"https://disk.yandex.ru/i/1O85BiLujMkXDw"
-},
-{
-  name:"Свирко Елена",
-  img:"photos/Свирко.jpg",
-  age:"58 лет",
-  video:"https://vk.com/away.php?to=https%3A%2F%2Fdisk.yandex.ru%2Fd%2Fy0-1yanQbw3IsA&utf=1",
-  video2:"https://casting.filmtoolz.ru/4047607/"
-},
-{
-  name:"Мария Клешнина",
-  img:"photos/Клешнина.jpg",
-  img2:"photos/Клешнина1.jpg",
-  video:"https://disk.yandex.ru/i/HOamNPTs4WT-2Q",
-  video2:"https://disk.yandex.ru/i/VQ6ox_lyikxu0Q"
-},
-{
-  name:"Сдобникова Лариса",
-  img:"photos/Сдобникова.jpg",
-  img2:"photos/Сдобникова1.jpg",
-  video:"https://disk.yandex.ru/i/LHwXMBSKlgC8ug",
-  video2:"https://ftoolz.ru/3694045/"
-}
+{ name:"Орлова Людмила", img:"photos/Орлова.jpg", age:"47 лет", size:"164/44/37", video:"https://disk.yandex.com/i/koblFHKk9nzJug" },
+{ name:"Медведева Лия", img:"photos/Медведева.jpg", age:"57 лет", video:"https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
+{ name:"Ольга Кот", img:"photos/Кот.jpg", video:"https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
+{ name:"Минязова Аделина", img:"photos/Минязова.jpg", img2:"photos/Минязова1.jpg", age:"47 лет", video:"https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
+{ name:"Свирко Елена", img:"photos/Свирко.jpg", age:"58 лет", video:"https://vk.com/away.php?to=https%3A%2F%2Fdisk.yandex.ru%2Fd%2Fy0-1yanQbw3IsA&utf=1" },
+{ name:"Мария Клешнина", img:"photos/Клешнина.jpg", img2:"photos/Клешнина1.jpg", video:"https://disk.yandex.ru/i/HOamNPTs4WT-2Q" },
+{ name:"Сдобникова Лариса", img:"photos/Сдобникова.jpg", img2:"photos/Сдобникова1.jpg", video:"https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
 ],
+
 "Ведущий":[],
 "Охранник":[],
 "Фотограф":[],
@@ -331,69 +237,14 @@ roleList.appendChild(viewedDiv);
 for(let role in data){
   const div=document.createElement('div');
   div.className='role-card';
-
-  div.innerHTML=`
-    <strong>${role}</strong>
-    <div class="role-count">Проб: ${data[role].length}</div>
-  `;
-
+  div.innerHTML=`<strong>${role}</strong><div class="role-count">Проб: ${data[role].length}</div>`;
   div.onclick=()=>openRole(role);
   roleList.appendChild(div);
 }
 
-// утвержденные
-function openApproved(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('approvedPage').style.display='block';
-
-  const container=document.getElementById('approvedContainer');
-  container.innerHTML='';
-
-  approved.forEach(a=>{
-    const row=document.createElement('div');
-    row.className='approved-row';
-
-    row.innerHTML=`
-      <img src="${a.img}">
-      <div class="approved-info">
-        <div><strong>${a.role}</strong></div>
-        <div>${a.name}</div>
-        <div>${a.size}</div>
-      </div>
-    `;
-    container.appendChild(row);
-  });
-}
-
-// просмотренные
-function openViewed(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('viewedPage').style.display='block';
-
-  const container=document.getElementById('viewedContainer');
-  container.innerHTML='';
-
-  viewed.forEach(a=>{
-    const row=document.createElement('div');
-    row.className='approved-row';
-
-    row.innerHTML=`
-      <img src="${a.img}">
-      <div class="approved-info">
-        <div><strong>${a.name}</strong></div>
-        <div>Возраст: ${a.age || '-'}</div>
-        <div>Размеры: ${a.size || '-'}</div>
-        ${a.video?`<button class="btn" onclick="window.open('${a.video}')">Видео</button>`:''}
-      </div>
-    `;
-    container.appendChild(row);
-  });
-}
-
-// роли
+// функции
 function openRole(role){
   const list=data[role];
-
   document.getElementById('home').style.display='none';
   document.getElementById('actorPage').style.display='block';
 
@@ -407,29 +258,62 @@ function openRole(role){
 
   list.forEach(actor=>{
     const photos=actor.img2
-    ? `<div class="carousel">
-        <img src="${actor.img}">
-        <img src="${actor.img2}">
-      </div>
-      <div class="dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-      </div>`
-    : `<img src="${actor.img}">`;
+      ? `<div class="carousel"><img src="${actor.img}"><img src="${actor.img2}"></div>`
+      : `<img src="${actor.img}">`;
 
-    const card=document.createElement('div');
-    card.innerHTML=`
+    container.innerHTML+=`
       <div class="actor-card">
         ${photos}
         <div class="actor-info">
           <div class="name">${actor.name}</div>
-          ${actor.age?`<div>Возраст: ${actor.age}</div>`:''}
+          ${actor.age?`<div>${actor.age}</div>`:''}
           ${actor.size?`<div>${actor.size}</div>`:''}
           ${actor.video?`<button class="btn" onclick="window.open('${actor.video}')">Видео</button>`:''}
         </div>
       </div>
     `;
-    container.appendChild(card);
+  });
+}
+
+function openApproved(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('approvedPage').style.display='block';
+
+  const container=document.getElementById('approvedContainer');
+  container.innerHTML='';
+
+  approved.forEach(a=>{
+    container.innerHTML+=`
+      <div class="approved-row">
+        <img src="${a.img}">
+        <div class="approved-info">
+          <div><strong>${a.role}</strong></div>
+          <div>${a.name}</div>
+          <div>${a.size}</div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function openViewed(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('viewedPage').style.display='block';
+
+  const container=document.getElementById('viewedContainer');
+  container.innerHTML='';
+
+  viewed.forEach(a=>{
+    container.innerHTML+=`
+      <div class="approved-row">
+        <img src="${a.img}">
+        <div class="approved-info">
+          <div><strong>${a.name}</strong></div>
+          <div>${a.age || '-'}</div>
+          <div>${a.size || '-'}</div>
+        </div>
+      </div>
+    `;
   });
 }
 
