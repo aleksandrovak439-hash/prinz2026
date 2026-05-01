@@ -8,15 +8,15 @@
 <style>
 body {
   margin:0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
   background:#0f0f0f;
   color:white;
 }
 
 h1 {
   text-align:center;
-  margin:16px 0;
-  font-size:20px;
+  margin:14px 0;
+  font-size:18px;
 }
 
 .role-list { padding:10px; }
@@ -31,52 +31,76 @@ h1 {
 .role-count {
   color:#888;
   font-size:12px;
-  margin-top:4px;
 }
 
 .actor-container {
   padding:10px;
   display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
+/* карточка */
 .actor-card {
   background:#1c1c1e;
   border-radius:14px;
   overflow:hidden;
+  display:flex;
+  flex-direction:column;
 }
 
-.actor-card img {
+/* фото фикс 3:4 */
+.photo-wrap {
   width:100%;
-  height:220px;
+  aspect-ratio:3/4;
+  overflow:hidden;
+}
+
+.photo-wrap img {
+  width:100%;
+  height:100%;
   object-fit:cover;
 }
 
+/* карусель */
 .carousel {
   display:flex;
   overflow-x:auto;
 }
 
 .carousel img {
-  width:100%;
-  height:220px;
   flex-shrink:0;
-  object-fit:cover;
 }
 
+/* инфо */
 .actor-info {
-  padding:10px;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:100%;
 }
 
 .name {
-  font-size:14px;
+  font-size:13px;
   font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
+.meta {
+  font-size:12px;
+  color:#aaa;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* кнопка */
 .btn {
-  margin-top:8px;
-  padding:10px;
+  margin-top:6px;
+  height:36px;
   background:#ff3b30;
   border:none;
   border-radius:10px;
@@ -85,13 +109,7 @@ h1 {
   font-size:13px;
 }
 
-.back {
-  padding:10px;
-  color:#888;
-}
-
-.approved-container { padding:10px; }
-
+/* списки */
 .approved-row {
   display:flex;
   gap:10px;
@@ -110,6 +128,11 @@ h1 {
 
 .approved-info {
   font-size:13px;
+}
+
+.back {
+  padding:10px;
+  color:#888;
 }
 </style>
 </head>
@@ -151,40 +174,11 @@ const viewed = [
 { name:"Опря Макс", img:"photos/Опря.jpg", age:"27 лет", size:"165 см", video:"https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
 { name:"Бызгу Фома", img:"photos/Бызгу.jpg", age:"30 лет", size:"165 см", video:"https://casting.filmtoolz.ru/3161196/" },
 
-// добавлены 
-{ name:"Герасименко Валерия",
-  img:"photos/Герсасименко.jpg",
-  age:"27 лет",
-  size:"165 / 40 / 36",
-  video:"https://disk.yandex.ru/i/r772WG3WRJVesA"
-},
-{
-  name:"Степанова Александра",
-  img:"photos/Степанова.jpg",
-  age:"27 лет",
-  size:"173 / 42-44 / 38",
-  video:"https://disk.yandex.ru/i/fxueivOjgjxzmg"
-},
-{
-  name:"Ткачева Катя",
-  img:"photos/Ткачева.jpg",
-  age:"33 года",
-  size:"178 / 42 / 40",
-  video:"https://disk.yandex.ru/i/NKGcTYsGO8IWbQ"
-},
-{
-  name:"Лыскова Евгения",
-  img:"photos/Лыскова.jpg",
-  size:"175 / 44 / 40",
-  video:"https://disk.yandex.ru/i/RbCxFTV-ajpHLA"
-},
-{
-  name:"Мария Перн",
-  img:"photos/Перн.jpg",
-  age:"36 лет",
-  size:"170",
-  video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848"
-}
+{ name:"Герасименко Валерия", img:"photos/Герсасименко.jpg", age:"27 лет", size:"165 / 40 / 36", video:"https://disk.yandex.ru/i/r772WG3WRJVesA" },
+{ name:"Степанова Александра", img:"photos/Степанова.jpg", age:"27 лет", size:"173 / 42-44 / 38", video:"https://disk.yandex.ru/i/fxueivOjgjxzmg" },
+{ name:"Ткачева Катя", img:"photos/Ткачева.jpg", age:"33 года", size:"178 / 42 / 40", video:"https://disk.yandex.ru/i/NKGcTYsGO8IWbQ" },
+{ name:"Лыскова Евгения", img:"photos/Лыскова.jpg", size:"175 / 44 / 40", video:"https://disk.yandex.ru/i/RbCxFTV-ajpHLA" },
+{ name:"Мария Перн", img:"photos/Перн.jpg", age:"36 лет", size:"170", video:"https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" }
 ];
 
 // DATA
@@ -242,7 +236,7 @@ for(let role in data){
   roleList.appendChild(div);
 }
 
-// функции
+// роли
 function openRole(role){
   const list=data[role];
   document.getElementById('home').style.display='none';
@@ -257,17 +251,24 @@ function openRole(role){
   }
 
   list.forEach(actor=>{
-    const photos=actor.img2
-      ? `<div class="carousel"><img src="${actor.img}"><img src="${actor.img2}"></div>`
-      : `<img src="${actor.img}">`;
+    const photoBlock = actor.img2
+      ? `<div class="photo-wrap carousel">
+           <img src="${actor.img}">
+           <img src="${actor.img2}">
+         </div>`
+      : `<div class="photo-wrap">
+           <img src="${actor.img}">
+         </div>`;
 
     container.innerHTML+=`
       <div class="actor-card">
-        ${photos}
+        ${photoBlock}
         <div class="actor-info">
-          <div class="name">${actor.name}</div>
-          ${actor.age?`<div>${actor.age}</div>`:''}
-          ${actor.size?`<div>${actor.size}</div>`:''}
+          <div>
+            <div class="name">${actor.name}</div>
+            ${actor.age?`<div class="meta">${actor.age}</div>`:''}
+            ${actor.size?`<div class="meta">${actor.size}</div>`:''}
+          </div>
           ${actor.video?`<button class="btn" onclick="window.open('${actor.video}')">Видео</button>`:''}
         </div>
       </div>
@@ -275,27 +276,15 @@ function openRole(role){
   });
 }
 
-function openApproved(){
-  document.getElementById('home').style.display='none';
-  document.getElementById('approvedPage').style.display='block';
-
-  const container=document.getElementById('approvedContainer');
-  container.innerHTML='';
-
-  approved.forEach(a=>{
-    container.innerHTML+=`
-      <div class="approved-row">
-        <img src="${a.img}">
-        <div class="approved-info">
-          <div><strong>${a.role}</strong></div>
-          <div>${a.name}</div>
-          <div>${a.size}</div>
-        </div>
-      </div>
-    `;
-  });
+// назад
+function goBack(){
+  document.getElementById('actorPage').style.display='none';
+  document.getElementById('approvedPage').style.display='none';
+  document.getElementById('viewedPage').style.display='none';
+  document.getElementById('home').style.display='block';
 }
 
+// просмотренные
 function openViewed(){
   document.getElementById('home').style.display='none';
   document.getElementById('viewedPage').style.display='block';
@@ -317,11 +306,26 @@ function openViewed(){
   });
 }
 
-function goBack(){
-  document.getElementById('actorPage').style.display='none';
-  document.getElementById('approvedPage').style.display='none';
-  document.getElementById('viewedPage').style.display='none';
-  document.getElementById('home').style.display='block';
+// утвержденные
+function openApproved(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('approvedPage').style.display='block';
+
+  const container=document.getElementById('approvedContainer');
+  container.innerHTML='';
+
+  approved.forEach(a=>{
+    container.innerHTML+=`
+      <div class="approved-row">
+        <img src="${a.img}">
+        <div class="approved-info">
+          <div><strong>${a.role}</strong></div>
+          <div>${a.name}</div>
+          <div>${a.size}</div>
+        </div>
+      </div>
+    `;
+  });
 }
 
 </script>
