@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Принц — второй план</title>
+<title>Принц — Кастинг</title>
 <style>
   * {
     margin: 0;
@@ -438,7 +438,7 @@
 
 <div id="home">
   <div class="app-header">
-    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">второй план</span></h1>
+    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">кастинг‑проект</span></h1>
   </div>
   <div class="role-list" id="roleList"></div>
   <footer>Актёрский состав • презентация</footer>
@@ -474,7 +474,7 @@
 </div>
 
 <script>
-  // ---------- УТВЕРЖДЕННЫЕ (без видео) ----------
+  // ---------- УТВЕРЖДЕННЫЕ ----------
   const approved = [
     { 
       role: "Хозяйка Молли", 
@@ -508,13 +508,11 @@
       contacts: {
         phone: "+7 911 136 4565"
       }
-      // video поле удалено, в утверждённых кнопки видео не будет
     }
   ];
 
-  // ---------- ПРОСМОТРЕННЫЕ (все остальные из Ольги Львовны + старые) ----------
+  // ---------- ПРОСМОТРЕННЫЕ ----------
   const viewed = [
-    // исходные просмотренные
     { name: "Дружинин Павел", img: "photos/Дружинин.jpg", age: "39 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3119201/" },
     { name: "Шихалеев Сергей", img: "photos/Шихалеев.jpg", age: "36 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3566324/" },
     { name: "Опря Макс", img: "photos/Опря.jpg", age: "27 лет", size: "165 см", video: "https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
@@ -524,7 +522,6 @@
     { name: "Ткачева Катя", img: "photos/Ткачева.jpg", age: "33 года", size: "178 / 42 / 40", video: "https://disk.yandex.ru/i/NKGcTYsGO8IWbQ" },
     { name: "Лыскова Евгения", img: "photos/Лыскова.jpg", size: "175 / 44 / 40", video: "https://disk.yandex.ru/i/RbCxFTV-ajpHLA" },
     { name: "Мария Перн", img: "photos/Перн.jpg", age: "36 лет", size: "170", video: "https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" },
-    // бывшие кандидаты на роль Ольга Львовна (кроме Елены Свирко)
     { name: "Орлова Людмила", img: "photos/Орлова.jpg", age: "47 лет", size: "164/44/37", video: "https://disk.yandex.com/i/koblFHKk9nzJug" },
     { name: "Медведева Лия", img: "photos/Медведева.jpg", age: "57 лет", video: "https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
     { name: "Ольга Кот", img: "photos/Кот.jpg", video: "https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
@@ -533,8 +530,66 @@
     { name: "Сдобникова Лариса", img: "photos/Сдобникова.jpg", video: "https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
   ];
 
-  // ---------- РОЛИ (Ольга Львовна полностью удалена) ----------
+  // ---------- РОЛИ: "Кучер" теперь первый ----------
   const data = {
+    "Кучер": [
+      {
+        name: "Гуськов Роман",
+        img: "photos/Гуськов.jpg",
+        size: "180/52/44",
+        video: "https://disk.yandex.ru/i/nbS_53WgqhXe1g"
+      },
+      {
+        name: "Фролов Евгений",
+        img: "photos/Фролов.jpg",
+        size: "176/52/41",
+        video: "https://disk.yandex.ru/i/QT1ww1L95_q_4A"
+      },
+      {
+        name: "Казенкин Александр",
+        img: "photos/Казенкин.jpg",
+        img2: "photos/Казенкин1.jpg",
+        size: "176 /50 / 42",
+        video: "https://disk.yandex.ru/d/_TAAOKEuxNO80w"
+      },
+      {
+        name: "Филимоненко Игорь Юрьевич",
+        img: "photos/Филимоненко.jpg",
+        img2: "photos/Филимоненко1.jpg",
+        age: "48 лет",
+        education: "образование НГТИ",
+        size: "180/52/41",
+        video: "https://disk.yandex.ru/i/7z3cbqmiYPYZTA"
+      },
+      {
+        name: "Гайдук Артём",
+        img: "photos/Гайдук.jpg",
+        img2: "photos/Гайдук1.jpg",
+        age: "38 лет",
+        size: "170-52-43",
+        video: "https://disk.yandex.ru/i/oCHuDLLRiqvVKA"
+      },
+      {
+        name: "Семёнов Александр",
+        img: "photos/Семенов.jpg",
+        education: "Закончил Филиал ГИТИС, 2002",
+        size: "Рост 178, Одежда 52, Обувь 43",
+        video: "https://disk.yandex.ru/a/F3_uy1uB93sKdA"
+      },
+      {
+        name: "Михаил Новицкий",
+        img: "photos/Новицкий.jpg",
+        education: "ЛГИТМиК",
+        size: "164/48/41",
+        video: "https://disk.yandex.ru/i/H_DFH3u0KL_DGA"
+      },
+      {
+        name: "Антон Зуев",
+        img: "photos/Зуев.jpg",
+        size: "178/52/43",
+        video: "https://disk.yandex.ru/i/SlOTCxx04X9N_g"
+      }
+    ],
     "Кудрявая девушка с пуделем": [
       { name: "Зарбалиева Сабина", img: "photos/Сабина.jpg", img2: "photos/пудельМакс.jpg", size: "171/44", video: "https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
     ],
@@ -563,10 +618,13 @@
   }
 
   function buildMetaBlock(actor) {
-    let metaHtml = '';
-    if (actor.age) metaHtml += `<span>📅 ${actor.age}</span>`;
-    if (actor.size) metaHtml += `<span>📏 ${actor.size}</span>`;
-    return metaHtml ? `<div class="meta">${metaHtml}</div>` : '';
+    let metaItems = [];
+    if (actor.age) metaItems.push(`📅 ${actor.age}`);
+    if (actor.size) metaItems.push(`📏 ${actor.size}`);
+    if (actor.education) metaItems.push(`🎓 ${actor.education}`);
+    if (metaItems.length === 0) return '';
+    const spans = metaItems.map(item => `<span>${escapeHtml(item)}</span>`).join('');
+    return `<div class="meta">${spans}</div>`;
   }
 
   function renderPhotoBlock(actor) {
@@ -700,7 +758,6 @@
       return;
     }
     approved.forEach(item => {
-      // в утвержденных кнопка видео отсутствует по требованию
       container.innerHTML += `
         <div class="approved-row">
           <img src="${item.img}" alt="${item.name}" loading="lazy" onclick="openFullImage('${item.img}')">
@@ -720,7 +777,7 @@
     };
   }
 
-  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ ----------
+  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ (порядок определяется порядком ключей в data) ----------
   const roleListDiv = document.getElementById('roleList');
   roleListDiv.innerHTML = '';
 
