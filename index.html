@@ -474,7 +474,7 @@
 </div>
 
 <script>
-  // ---------- УТВЕРЖДЕННЫЕ ----------
+  // ---------- УТВЕРЖДЕННЫЕ (добавлены телефоны для Гайдук и Татаринович) ----------
   const approved = [
     { 
       role: "Хозяйка Молли", 
@@ -508,6 +508,26 @@
       contacts: {
         phone: "+7 911 136 4565"
       }
+    },
+    { 
+      role: "Кучер", 
+      name: "Гайдук Артём", 
+      img: "photos/Гайдук.jpg",
+      age: "38 лет",
+      size: "170-52-43",
+      contacts: {
+        phone: "89052025673"
+      }
+    },
+    { 
+      role: "Ведущий", 
+      name: "Татаринович Виталий", 
+      img: "photos/Татринович.jpg",
+      age: "44 года",
+      size: "187/48/43",
+      contacts: {
+        phone: "89219442360"
+      }
     }
   ];
 
@@ -530,7 +550,7 @@
     { name: "Сдобникова Лариса", img: "photos/Сдобникова.jpg", video: "https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
   ];
 
-  // ---------- РОЛИ (добавлены новые пробы) ----------
+  // ---------- РОЛИ (удалены Гайдук и Татаринович из проб) ----------
   const data = {
     "Кучер": [
       {
@@ -560,14 +580,6 @@
         education: "образование НГТИ",
         size: "180/52/41",
         video: "https://disk.yandex.ru/i/7z3cbqmiYPYZTA"
-      },
-      {
-        name: "Гайдук Артём",
-        img: "photos/Гайдук.jpg",
-        img2: "photos/Гайдук1.jpg",
-        age: "38 лет",
-        size: "170-52-43",
-        video: "https://disk.yandex.ru/i/oCHuDLLRiqvVKA"
       },
       {
         name: "Семёнов Александр",
@@ -609,13 +621,6 @@
         age: "28 лет",
         size: "179/48/41",
         video: "https://disk.yandex.ru/d/X61i-0_zYDCliA"
-      },
-      {
-        name: "Татаринович Виталий",
-        img: "photos/Татаринович.jpg",
-        age: "44 года",
-        size: "187/48/43",
-        video: "https://disk.yandex.ru/i/jmGnTL2nE7vfJQ"
       },
       {
         name: "Никита Береснев",
@@ -732,7 +737,7 @@
     const modal = document.getElementById('contactsModal');
     const bodyDiv = document.getElementById('contactsModalBody');
     let contactsHtml = `<h3>📞 ${escapeHtml(actor.name)}</h3>`;
-    if (actor.contacts) {
+    if (actor.contacts && Object.keys(actor.contacts).length > 0) {
       const c = actor.contacts;
       if (c.phone1) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone1)}</strong></p>`;
       if (c.phone) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone)}</strong></p>`;
@@ -833,7 +838,7 @@
           <div class="approved-info">
             <strong>${escapeHtml(item.role)}</strong>
             <div>${escapeHtml(item.name)}</div>
-            <div>${item.size || ''}</div>
+            <div>${item.age ? item.age + ' ' : ''}${item.size || ''}</div>
             <div class="btn-group">
               <button class="contacts-btn" onclick="window.showContactsForActor(${JSON.stringify(item).replace(/"/g, '&quot;')})">📋 Контакты</button>
             </div>
