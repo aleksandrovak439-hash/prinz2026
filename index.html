@@ -474,7 +474,7 @@
 </div>
 
 <script>
-  // ---------- УТВЕРЖДЕННЫЕ (добавлены телефоны для Гайдук и Татаринович) ----------
+  // ---------- УТВЕРЖДЕННЫЕ (добавлен ребёнок с мамой) ----------
   const approved = [
     { 
       role: "Хозяйка Молли", 
@@ -522,16 +522,23 @@
     { 
       role: "Ведущий", 
       name: "Татаринович Виталий", 
-      img: "photos/Татаринович.jpg",
+      img: "photos/Татринович.jpg",
       age: "44 года",
       size: "187/48/43",
       contacts: {
         phone: "89219442360"
       }
+    },
+    { 
+      role: "Ребенок с мамой", 
+      name: "Мария Смолянникова", 
+      img: "photos/ребенок.jpg",  // фото не указано, будет отображаться пустое место
+      size: "",
+      contacts: {}
     }
   ];
 
-  // ---------- ПРОСМОТРЕННЫЕ ----------
+  // ---------- ПРОСМОТРЕННЫЕ (без изменений) ----------
   const viewed = [
     { name: "Дружинин Павел", img: "photos/Дружинин.jpg", age: "39 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3119201/" },
     { name: "Шихалеев Сергей", img: "photos/Шихалеев.jpg", age: "36 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3566324/" },
@@ -550,7 +557,7 @@
     { name: "Сдобникова Лариса", img: "photos/Сдобникова.jpg", video: "https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
   ];
 
-  // ---------- РОЛИ (удалены Гайдук и Татаринович из проб) ----------
+  // ---------- РОЛИ (добавлены Кулев и Власов в Повара) ----------
   const data = {
     "Кучер": [
       {
@@ -667,6 +674,18 @@
         age: "51 год",
         size: "182/42/52",
         video: "https://disk.yandex.ru/i/eHYRpvyJGlaQuQ"
+      },
+      {
+        name: "Кулев Андрей",
+        img: "photos/Кулев.jpg",
+        size: "183/56/43",
+        video: "https://disk.yandex.ru/i/15eyl7PzVx8D8A"
+      },
+      {
+        name: "Власов Илья",
+        img: "photos/Власов.jpg",
+        size: "182",
+        video: "https://disk.yandex.ru/i/yzD-GexzmGIr0A"
       }
     ],
     "Толстый мужчина с английским бульдогом": [],
@@ -721,6 +740,7 @@
   }
 
   function openFullImage(src) {
+    if (!src) return;
     const modal = document.getElementById('photoModal');
     const modalImg = document.getElementById('modalPhotoImg');
     modalImg.src = src;
@@ -832,9 +852,11 @@
       return;
     }
     approved.forEach(item => {
+      // Если фото не указано, показываем заглушку (пустое место)
+      const imgSrc = item.img && item.img.trim() !== "" ? item.img : "";
       container.innerHTML += `
         <div class="approved-row">
-          <img src="${item.img}" alt="${item.name}" loading="lazy" onclick="openFullImage('${item.img}')">
+          <img src="${imgSrc}" alt="${item.name}" loading="lazy" onclick="openFullImage('${imgSrc}')" style="${!imgSrc ? 'opacity:0.3; background:#2c2c2e;' : ''}">
           <div class="approved-info">
             <strong>${escapeHtml(item.role)}</strong>
             <div>${escapeHtml(item.name)}</div>
