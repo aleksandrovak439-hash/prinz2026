@@ -289,7 +289,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.96);
-    z-index: 2000;
+    z-index: 10000;
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(20px);
@@ -412,7 +412,7 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.95);
-    z-index: 2100;
+    z-index: 10001;
     justify-content: center;
     align-items: center;
     cursor: pointer;
@@ -450,6 +450,49 @@
     border-radius: 40px;
   }
 
+  .photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.96);
+    z-index: 10002;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .photo-container {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+  }
+
+  .photo-container img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 16px;
+  }
+
+  .photo-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+    background: rgba(0,0,0,0.5);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+  }
+
   footer {
     text-align: center;
     font-size: 11px;
@@ -471,13 +514,10 @@
 </div>
 
 <!-- Модальное окно для фото -->
-<div id="photoModal" class="modal-overlay" onclick="closePhotoModal(event)">
-  <div class="modal-container" onclick="event.stopPropagation()">
-    <div class="modal-header">
-      <h2>Фото</h2>
-      <div class="modal-close" onclick="closePhotoModal()">&times;</div>
-    </div>
-    <img id="modalPhotoImg" style="width: 100%; border-radius: 16px;" src="">
+<div id="photoModal" class="photo-modal" onclick="closePhotoModal(event)">
+  <div class="photo-container" onclick="event.stopPropagation()">
+    <div class="photo-close" onclick="closePhotoModal()">&times;</div>
+    <img id="modalPhotoImg" src="">
   </div>
 </div>
 
@@ -558,7 +598,7 @@
   }
 
   function closePhotoModal(event) {
-    if (event && event.target !== event.currentTarget && event.target.className !== 'modal-close') return;
+    if (event && event.target !== event.currentTarget && event.target.className !== 'photo-close') return;
     document.getElementById('photoModal').style.display = 'none';
     document.getElementById('modalPhotoImg').src = '';
   }
@@ -688,9 +728,6 @@
     }
     actorsList.forEach(actor => {
       let photoHtml = `<div class="single-photo"><img src="${actor.img}" onclick="openPhotoModal('${actor.img}')"></div>`;
-      if (actor.img2) {
-        photoHtml = `<div class="single-photo"><img src="${actor.img}" onclick="openPhotoModal('${actor.img}')"></div>`;
-      }
       const metaHtml = (actor.age || actor.size) ? `<div class="meta">${actor.age ? `<span>📅 ${actor.age}</span>` : ''}${actor.size ? `<span>📏 ${actor.size}</span>` : ''}</div>` : '';
       const videoBtn = actor.video ? `<button class="video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Смотреть видео</button>` : '';
       container.innerHTML += `<div class="actor-card">${photoHtml}<div class="actor-info"><div class="name">${escapeHtml(actor.name)}</div>${metaHtml}${videoBtn}</div></div>`;
