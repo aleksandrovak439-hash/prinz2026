@@ -12,56 +12,104 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  :root {
+    --bg-primary: #050505;
+    --bg-secondary: #121212;
+    --bg-card: #121212;
+    --bg-elevated: #1c1c1e;
+    --bg-input: #1e1e1e;
+    --text-primary: #f2f2f2;
+    --text-secondary: #aaa;
+    --text-muted: #6c6c70;
+    --border-color: rgba(255,255,255,0.05);
+    --border-light: rgba(255,255,255,0.1);
+    --accent: #ff3b30;
+    --accent-hover: #e0352a;
+    --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    --header-bg: rgba(5,5,5,0.9);
+    --placeholder-bg: #222;
+  }
+
+  body.light {
+    --bg-primary: #f5f5f7;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-elevated: #e9e9ef;
+    --bg-input: #f0f0f0;
+    --text-primary: #1c1c1e;
+    --text-secondary: #3a3a3c;
+    --text-muted: #8e8e93;
+    --border-color: rgba(0,0,0,0.08);
+    --border-light: rgba(0,0,0,0.1);
+    --accent: #ff3b30;
+    --accent-hover: #d92c22;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --header-bg: rgba(245,245,247,0.95);
+    --placeholder-bg: #e5e5ea;
+  }
+
   body {
-    background: #050505;
+    background: var(--bg-primary);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
-    color: #f2f2f2;
+    color: var(--text-primary);
     padding: 0 0 24px 0;
+    transition: background 0.3s ease, color 0.2s ease;
   }
 
   .app-header {
     padding: 20px 16px 8px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 8px;
-    background: rgba(5,5,5,0.9);
+    background: var(--header-bg);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
     z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .app-header h1 {
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #FFFFFF 0%, #C0C0C0 100%);
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     margin: 0;
-    text-align: left;
+  }
+
+  .theme-toggle {
+    background: var(--bg-elevated);
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 0.5px solid var(--border-light);
   }
 
   .back-button {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
+    background: var(--bg-elevated);
     padding: 8px 16px;
     border-radius: 40px;
     font-size: 15px;
     font-weight: 500;
-    color: #fff;
+    color: var(--text-primary);
     cursor: pointer;
-    transition: all 0.2s ease;
-    border: 0.5px solid rgba(255,255,255,0.1);
+    border: 0.5px solid var(--border-light);
     width: fit-content;
     margin: 12px 16px 0 16px;
-  }
-
-  .back-button:active {
-    transform: scale(0.97);
   }
 
   .role-list {
@@ -72,39 +120,34 @@
   }
 
   .role-card {
-    background: #121212;
+    background: var(--bg-card);
     border-radius: 24px;
     padding: 18px 20px;
-    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: all 0.2s ease;
   }
 
   .role-card:active {
     transform: scale(0.98);
-    background: #1c1c1e;
+    background: var(--bg-elevated);
   }
 
   .role-card strong {
     font-size: 18px;
     font-weight: 600;
-    letter-spacing: -0.3px;
     display: block;
     margin-bottom: 8px;
+    color: var(--text-primary);
   }
 
   .role-count {
     font-size: 13px;
-    color: #9e9e9e;
+    color: var(--text-secondary);
     display: flex;
     align-items: center;
     gap: 6px;
-  }
-
-  .role-count::before {
-    content: "🎬";
-    font-size: 14px;
   }
 
   .actor-container {
@@ -117,25 +160,15 @@
   @media (min-width: 560px) {
     .actor-container {
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
     }
   }
 
   .actor-card {
-    background: #121212;
+    background: var(--bg-card);
     border-radius: 28px;
     overflow: hidden;
-    transition: all 0.25s ease;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .photo-block {
-    width: 100%;
-    background: #1e1e1e;
-    position: relative;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
   }
 
   .single-photo {
@@ -147,111 +180,51 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
-    cursor: pointer;
-  }
-
-  .actor-card:hover .single-photo img {
-    transform: scale(1.02);
-  }
-
-  .carousel-slider {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    gap: 0;
-    background: #0a0a0a;
-  }
-
-  .carousel-slider::-webkit-scrollbar {
-    height: 4px;
-  }
-  .carousel-slider::-webkit-scrollbar-track {
-    background: #2a2a2a;
-    border-radius: 10px;
-  }
-  .carousel-slider::-webkit-scrollbar-thumb {
-    background: #ff3b30;
-    border-radius: 10px;
-  }
-
-  .slide {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    aspect-ratio: 3 / 5;
-    background: #1a1a1a;
-  }
-
-  .slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
     cursor: pointer;
   }
 
   .actor-info {
-    padding: 14px 12px 16px 12px;
+    padding: 14px 12px 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: #121212;
+    background: var(--bg-card);
   }
 
   .name {
     font-size: 17px;
     font-weight: 700;
-    letter-spacing: -0.3px;
-    color: white;
-    line-height: 1.3;
+    color: var(--text-primary);
   }
 
   .meta {
     font-size: 13px;
-    color: #aaa;
+    color: var(--text-secondary);
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    align-items: center;
   }
 
   .meta span {
-    background: rgba(255,255,255,0.07);
+    background: var(--bg-elevated);
     padding: 4px 10px;
     border-radius: 30px;
     font-size: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
   }
 
   .video-btn {
     margin-top: 8px;
-    background: #ff3b30;
+    background: var(--accent);
     border: none;
     border-radius: 60px;
     padding: 12px 0;
     font-weight: 600;
     font-size: 15px;
     color: white;
-    width: 100%;
     cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 2px 8px rgba(255,59,48,0.3);
   }
 
-  .video-btn:active {
-    transform: scale(0.96);
-    background: #e0352a;
-  }
-
-  .approved-container, .viewed-container {
+  .approved-container {
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -259,14 +232,13 @@
   }
 
   .approved-row {
-    background: #121212;
+    background: var(--bg-card);
     border-radius: 24px;
     padding: 12px;
     display: flex;
     gap: 16px;
     align-items: center;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.2s;
+    border: 1px solid var(--border-color);
   }
 
   .approved-row img {
@@ -274,14 +246,8 @@
     height: 140px;
     object-fit: cover;
     border-radius: 18px;
-    background: #2c2c2e;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    background: var(--bg-input);
     cursor: pointer;
-    transition: 0.2s;
-  }
-
-  .approved-row img:active {
-    transform: scale(0.96);
   }
 
   .approved-info {
@@ -292,55 +258,153 @@
     font-size: 17px;
     display: block;
     margin-bottom: 4px;
+    color: var(--text-primary);
   }
 
   .approved-info div {
     font-size: 13px;
-    color: #bcbcbc;
+    color: var(--text-secondary);
     margin-top: 4px;
   }
 
-  .small-video-btn, .contacts-btn {
-    background: #ff3b30;
+  .contacts-btn {
+    background: var(--bg-elevated);
     border: none;
     border-radius: 40px;
     padding: 8px 16px;
     font-size: 12px;
     font-weight: 600;
-    color: white;
+    color: var(--text-primary);
     margin-top: 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
     cursor: pointer;
-    transition: 0.2s;
+    display: inline-block;
   }
 
-  .contacts-btn {
-    background: #2c2c2e;
-    margin-left: 0;
+  /* Модальные окна */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.96);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(20px);
+    cursor: pointer;
   }
 
-  .contacts-btn:active {
-    background: #3a3a3c;
-    transform: scale(0.96);
+  .modal-container {
+    background: var(--bg-secondary);
+    border-radius: 32px;
+    width: 90%;
+    max-width: 1100px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 20px 16px;
+    position: relative;
+    cursor: default;
+    border: 1px solid var(--border-light);
   }
 
-  .btn-group {
+  .modal-header {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 6px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
   }
 
-  .empty-message {
+  .modal-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .modal-close {
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--text-primary);
+    cursor: pointer;
+    background: var(--bg-elevated);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+  }
+
+  .special-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .special-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  .special-photo {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-input);
+  }
+
+  .special-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .special-info {
+    padding: 8px 6px 12px;
     text-align: center;
-    color: #6c6c70;
-    padding: 48px 20px;
-    font-size: 16px;
   }
 
-  .modal {
+  .special-name {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    word-break: break-word;
+  }
+
+  .special-video-btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 30px;
+    padding: 6px 0;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .placeholder-block {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--bg-card);
+    border-radius: 24px;
+    margin: 10px;
+  }
+
+  @media (max-width: 560px) {
+    .special-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .video-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -348,68 +412,33 @@
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.95);
-    z-index: 1000;
+    z-index: 2100;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(16px);
     cursor: pointer;
   }
 
-  .modal-content {
-    max-width: 90vw;
-    max-height: 90vh;
+  .video-container {
+    background: #000;
     border-radius: 28px;
-    overflow: auto;
-    background: #121212;
-    padding: 0;
+    width: 90%;
+    max-width: 800px;
     position: relative;
     cursor: default;
   }
 
-  .modal-img {
-    width: auto;
-    max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
-    display: block;
-    border-radius: 24px;
+  .video-container iframe {
+    width: 100%;
+    height: 450px;
+    border: none;
+    border-radius: 28px;
   }
 
-  .modal-contacts {
-    background: #1c1c1e;
-    border-radius: 32px;
-    padding: 28px 24px;
-    width: 320px;
-    max-width: 85vw;
-    color: white;
-    text-align: left;
-  }
-
-  .modal-contacts h3 {
-    font-size: 22px;
-    margin-bottom: 16px;
-    font-weight: 700;
-  }
-
-  .modal-contacts p {
-    margin: 12px 0;
-    font-size: 15px;
-    line-height: 1.4;
-    color: #ddd;
-    word-break: break-word;
-  }
-
-  .modal-contacts strong {
-    color: #ff3b30;
-    font-weight: 600;
-  }
-
-  .close-modal {
+  .video-close {
     position: absolute;
-    top: 16px;
-    right: 20px;
+    top: -40px;
+    right: 0;
     font-size: 32px;
-    font-weight: 300;
     color: white;
     cursor: pointer;
     background: rgba(0,0,0,0.5);
@@ -419,17 +448,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 40px;
-    transition: 0.2s;
-  }
-
-  .close-modal:hover {
-    background: #ff3b30;
   }
 
   footer {
     text-align: center;
     font-size: 11px;
-    color: #3a3a3c;
+    color: var(--text-muted);
     margin-top: 32px;
   }
 </style>
@@ -438,266 +462,196 @@
 
 <div id="home">
   <div class="app-header">
-    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal; color:#aaa;">кастинг‑проект</span></h1>
+    <h1>🎭 Принц<br><span style="font-size: 14px; font-weight: normal;">кастинг‑проект</span></h1>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Светлая тема</button>
   </div>
+
   <div class="role-list" id="roleList"></div>
   <footer>Актёрский состав • презентация</footer>
 </div>
 
-<div id="actorPage" style="display:none;">
-  <div class="back-button" onclick="goBack()">← Назад к ролям</div>
-  <div class="actor-container" id="actorContainer"></div>
+<!-- Модальное окно для фото -->
+<div id="photoModal" class="modal-overlay" onclick="closePhotoModal(event)">
+  <div class="modal-container" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Фото</h2>
+      <div class="modal-close" onclick="closePhotoModal()">&times;</div>
+    </div>
+    <img id="modalPhotoImg" style="width: 100%; border-radius: 16px;" src="">
+  </div>
 </div>
 
+<!-- Модальное окно для видео -->
+<div id="videoModal" class="video-modal" onclick="closeVideoModal(event)">
+  <div class="video-container" onclick="event.stopPropagation()">
+    <div class="video-close" onclick="closeVideoModal()">&times;</div>
+    <div id="videoPlayer"></div>
+  </div>
+</div>
+
+<!-- Страница утверждённых -->
 <div id="approvedPage" style="display:none;">
   <div class="back-button" onclick="goBack()">← Назад</div>
   <div class="approved-container" id="approvedContainer"></div>
 </div>
 
-<div id="viewedPage" style="display:none;">
-  <div class="back-button" onclick="goBack()">← Назад</div>
-  <div class="viewed-container" id="viewedContainer"></div>
-</div>
-
-<div id="photoModal" class="modal" onclick="closePhotoModal(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close-modal" onclick="closePhotoModal()">&times;</span>
-    <img id="modalPhotoImg" class="modal-img" src="" alt="полноразмерное фото">
-  </div>
-</div>
-
-<div id="contactsModal" class="modal" onclick="closeContactsModal(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <span class="close-modal" onclick="closeContactsModal()">&times;</span>
-    <div id="contactsModalBody" class="modal-contacts"></div>
-  </div>
+<!-- Страница ролей (пробы) -->
+<div id="actorPage" style="display:none;">
+  <div class="back-button" onclick="goBack()">← Назад к ролям</div>
+  <div class="actor-container" id="actorContainer"></div>
 </div>
 
 <script>
-  // ---------- УТВЕРЖДЕННЫЕ (добавлен ребёнок с мамой) ----------
+  // ---------- УТВЕРЖДЕННЫЕ ----------
   const approved = [
-    { 
-      role: "Хозяйка Молли", 
-      name: "Тая Федянина", 
-      img: "photos/Федянина1.jpg", 
-      size: "170 / 44 / 38",
-      contacts: {
-        phone1: "+7 985 199 06 86",
-        agent: "Натали Дале",
-        agentPhone: "+7 903 612 24 99",
-        email: "7037100@mail.ru"
-      }
-    },
-    { 
-      role: "Дачник", 
-      name: "Гульнев Дмитрий", 
-      img: "photos/Гульнев1.jpg", 
-      size: "175/48/41",
-      contacts: {
-        agent: "Наталия Торлакян",
-        agency: "Созвездие Нева",
-        phone: "+7 921 913 39 82",
-        email: "torlik@mail.ru"
-      }
-    },
-    { 
-      role: "Ольга Львовна", 
-      name: "Елена Свирко", 
-      img: "photos/Свирко.jpg", 
-      size: "161/44/36",
-      contacts: {
-        phone: "+7 911 136 4565"
-      }
-    },
-    { 
-      role: "Кучер", 
-      name: "Гайдук Артём", 
-      img: "photos/Гайдук.jpg",
-      age: "38 лет",
-      size: "170-52-43",
-      contacts: {
-        phone: "89052025673"
-      }
-    },
-    { 
-      role: "Ведущий", 
-      name: "Татаринович Виталий", 
-      img: "photos/Татаринович.jpg",
-      age: "44 года",
-      size: "187/48/43",
-      contacts: {
-        phone: "89219442360"
-      }
-    },
-    { 
-      role: "Ребенок с мамой", 
-      name: "Мария Смолянникова", 
-      img: "photos/ребенок.jpg",  // фото не указано, будет отображаться пустое место
-      size: "",
-      contacts: {}
-    }
+    { role: "Хозяйка Молли", name: "Тая Федянина", img: "photos/Федянина1.jpg", size: "170 / 44 / 38", contacts: { phone1: "+7 985 199 06 86", agent: "Натали Дале", agentPhone: "+7 903 612 24 99", email: "7037100@mail.ru" } },
+    { role: "Дачник", name: "Гульнев Дмитрий", img: "photos/Гульнев1.jpg", size: "175/48/41", contacts: { agent: "Наталия Торлакян", agency: "Созвездие Нева", phone: "+7 921 913 39 82", email: "torlik@mail.ru" } },
+    { role: "Ольга Львовна", name: "Елена Свирко", img: "photos/Свирко.jpg", size: "161/44/36", contacts: { phone: "+7 911 136 4565" } },
+    { role: "Кучер", name: "Гайдук Артём", img: "photos/Гайдук.jpg", age: "38 лет", size: "170-52-43", contacts: { phone: "89052025673" } },
+    { role: "Ведущий", name: "Татаринович Виталий", img: "photos/Татринович.jpg", age: "44 года", size: "187/48/43", contacts: { phone: "89219442360" } },
+    { role: "Ребенок с мамой", name: "Мария Смолянникова", img: "", size: "", contacts: {} }
   ];
 
-  // ---------- ПРОСМОТРЕННЫЕ (без изменений) ----------
-  const viewed = [
-    { name: "Дружинин Павел", img: "photos/Дружинин.jpg", age: "39 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3119201/" },
-    { name: "Шихалеев Сергей", img: "photos/Шихалеев.jpg", age: "36 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3566324/" },
-    { name: "Опря Макс", img: "photos/Опря.jpg", age: "27 лет", size: "165 см", video: "https://disk.yandex.ru/i/MflOCm4rlkcUKA" },
-    { name: "Бызгу Фома", img: "photos/Бызгу.jpg", age: "30 лет", size: "165 см", video: "https://casting.filmtoolz.ru/3161196/" },
-    { name: "Герасименко Валерия", img: "photos/Герсасименко.jpg", age: "27 лет", size: "165 / 40 / 36", video: "https://disk.yandex.ru/i/r772WG3WRJVesA" },
-    { name: "Степанова Александра", img: "photos/Степанова.jpg", age: "27 лет", size: "173 / 42-44 / 38", video: "https://disk.yandex.ru/i/fxueivOjgjxzmg" },
-    { name: "Ткачева Катя", img: "photos/Ткачева.jpg", age: "33 года", size: "178 / 42 / 40", video: "https://disk.yandex.ru/i/NKGcTYsGO8IWbQ" },
-    { name: "Лыскова Евгения", img: "photos/Лыскова.jpg", size: "175 / 44 / 40", video: "https://disk.yandex.ru/i/RbCxFTV-ajpHLA" },
-    { name: "Мария Перн", img: "photos/Перн.jpg", age: "36 лет", size: "170", video: "https://casting.filmtoolz.ru/3118160/?modal=actor#video-cp143848" },
-    { name: "Орлова Людмила", img: "photos/Орлова.jpg", age: "47 лет", size: "164/44/37", video: "https://disk.yandex.com/i/koblFHKk9nzJug" },
-    { name: "Медведева Лия", img: "photos/Медведева.jpg", age: "57 лет", video: "https://disk.yandex.ru/i/lkJKc6DlnHBZtQ" },
-    { name: "Ольга Кот", img: "photos/Кот.jpg", video: "https://disk.yandex.ru/i/wvs5pVCrg-BXuQ" },
-    { name: "Минязова Аделина", img: "photos/Минязова.jpg", age: "47 лет", size: "—", video: "https://disk.yandex.ru/i/K5KXXge9DD_Z-w" },
-    { name: "Мария Клешнина", img: "photos/Клешнина.jpg", video: "https://disk.yandex.ru/i/HOamNPTs4WT-2Q" },
-    { name: "Сдобникова Лариса", img: "photos/Сдобникова.jpg", video: "https://disk.yandex.ru/i/LHwXMBSKlgC8ug" }
+  // ---------- ДАННЫЕ ДЛЯ БЛОКА "МАЛЬЧИК И КОРГИ" ----------
+  const kidsAndDogs = [
+    { name: "Корги Женечка", img: "photos/Женечка.jpg", videoEmbed: '<iframe src="https://vk.ru/video_ext.php?oid=543506&id=456240241" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>' },
+    { name: "Корги Йожик", img: "photos/Йожик.jpg", videoEmbed: '<iframe src="https://vk.ru/video_ext.php?oid=2084979&id=456240321" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>' },
+    { name: "Корги Кэрри", img: "photos/Кэрри.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvqoxmkvuarcvu6fiv?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Корги Джан", img: "photos/Джан.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvz63ci7ugq5ynyf2m?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Корги Женя", img: "photos/Женя.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvynsuh5ul7eglmsx7?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Леонель Прокофьев, 12 лет", img: "photos/Прокофьев.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv4mvjz7m3a2u73toh?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Кузьмин Севастьян, 8 лет", img: "photos/Кузьмин.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvqgaz5vyycqiyga5g?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Дима Саворовский", img: "photos/Саворский.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvcjpzi2n5htilbscy?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Лещенко Богдан, 10 лет", img: "photos/Лещенко.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvipmb4q6ewlraq3cg?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Воронов Вадим, 9 лет", img: "photos/Воронов.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvxzdqy5wfmkrpa5it?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Истомин Максим, 12 лет", img: "photos/Истомин.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvjn227yxxcmmrhtqy?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' }
   ];
 
-  // ---------- РОЛИ (добавлены Кулев и Власов в Повара) ----------
+  // ---------- ПРОБЫ НА ПОВАРА ----------
+  const povaActs = [
+    { name: "Дмитрий Ранн", img: "photos/Ранн.jpg", img2: "photos/Ранн1.jpg", age: "48 лет", size: "183/54/43", video: "https://disk.yandex.ru/i/RNXTlnNr-YVKig" },
+    { name: "Федоров Сергей", img: "photos/Федоров.jpg", img2: "photos/Федоров1.jpg", age: "48 лет", size: "173/48/43", video: "https://disk.yandex.ru/i/3ipaGhab_nN3RQ" },
+    { name: "Бодров Дмитрий", img: "photos/Бодров.jpg", age: "49 лет", size: "рост 173, од 50, об 42", video: "https://disk.yandex.ru/i/6B0QgMYjvOt0UA" },
+    { name: "Дроздов Сергей", img: "photos/Дроздов.jpg", age: "51 год", size: "175/48/43", video: "https://disk.yandex.ru/i/5c5fESyiot18jg" },
+    { name: "Корбут Павел", img: "photos/Корбут.jpg", age: "51 год", size: "182/42/52", video: "https://disk.yandex.ru/i/eHYRpvyJGlaQuQ" },
+    { name: "Кулев Андрей", img: "photos/Кулев.jpg", size: "183/56/43", video: "https://disk.yandex.ru/i/15eyl7PzVx8D8A" },
+    { name: "Власов Илья", img: "photos/Власов.jpg", size: "182", video: "https://disk.yandex.ru/i/yzD-GexzmGIr0A" }
+  ];
+
+  // ---------- РОЛИ ----------
   const data = {
-    "Кучер": [
-      {
-        name: "Гуськов Роман",
-        img: "photos/Гуськов.jpg",
-        size: "180/52/44",
-        video: "https://disk.yandex.ru/i/nbS_53WgqhXe1g"
-      },
-      {
-        name: "Фролов Евгений",
-        img: "photos/Фролов.jpg",
-        size: "176/52/41",
-        video: "https://disk.yandex.ru/i/QT1ww1L95_q_4A"
-      },
-      {
-        name: "Казенкин Александр",
-        img: "photos/Казенкин.jpg",
-        img2: "photos/Казенкин1.jpg",
-        size: "176 /50 / 42",
-        video: "https://disk.yandex.ru/d/_TAAOKEuxNO80w"
-      },
-      {
-        name: "Филимоненко Игорь Юрьевич",
-        img: "photos/Филимоненко.jpg",
-        img2: "photos/Филимоненко1.jpg",
-        age: "48 лет",
-        education: "образование НГТИ",
-        size: "180/52/41",
-        video: "https://disk.yandex.ru/i/7z3cbqmiYPYZTA"
-      },
-      {
-        name: "Семёнов Александр",
-        img: "photos/Семенов.jpg",
-        education: "Закончил Филиал ГИТИС, 2002",
-        size: "Рост 178, Одежда 52, Обувь 43",
-        video: "https://disk.yandex.ru/a/F3_uy1uB93sKdA"
-      },
-      {
-        name: "Михаил Новицкий",
-        img: "photos/Новицкий.jpg",
-        education: "ЛГИТМиК",
-        size: "164/48/41",
-        video: "https://disk.yandex.ru/i/H_DFH3u0KL_DGA"
-      },
-      {
-        name: "Антон Зуев",
-        img: "photos/Зуев.jpg",
-        size: "178/52/43",
-        video: "https://disk.yandex.ru/i/SlOTCxx04X9N_g"
-      }
-    ],
-    "Кудрявая девушка с пуделем": [
-      { name: "Зарбалиева Сабина", img: "photos/Сабина.jpg", img2: "photos/пудельМакс.jpg", size: "171/44", video: "https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }
-    ],
-    "Ведущий": [
-      {
-        name: "Чугунов Илья",
-        img: "photos/Чугунов.jpg",
-        img2: "photos/Чугунов1.jpg",
-        age: "37 лет",
-        size: "187/52/45",
-        video: "https://disk.yandex.ru/i/JsEGiH68haPs-A"
-      },
-      {
-        name: "Александровский Павел",
-        img: "photos/Александровский.jpg",
-        img2: "photos/Александровский1.jpg",
-        age: "28 лет",
-        size: "179/48/41",
-        video: "https://disk.yandex.ru/d/X61i-0_zYDCliA"
-      },
-      {
-        name: "Никита Береснев",
-        img: "photos/Береснев.jpg",
-        age: "25 лет",
-        size: "176/48/43",
-        video: "https://disk.yandex.ru/i/T2fQHBCJzgobdQ"
-      }
-    ],
-    "Повар": [
-      {
-        name: "Дмитрий Ранн",
-        img: "photos/Ранн.jpg",
-        img2: "photos/Ранн1.jpg",
-        age: "48 лет",
-        size: "183/54/43",
-        video: "https://disk.yandex.ru/i/RNXTlnNr-YVKig"
-      },
-      {
-        name: "Федоров Сергей",
-        img: "photos/Федоров.jpg",
-        img2: "photos/Федоров1.jpg",
-        age: "48 лет",
-        size: "173/48/43",
-        video: "https://disk.yandex.ru/i/3ipaGhab_nN3RQ"
-      },
-      {
-        name: "Бодров Дмитрий",
-        img: "photos/Бодров.jpg",
-        age: "49 лет",
-        size: "рост 173, од 50, об 42",
-        video: "https://disk.yandex.ru/i/6B0QgMYjvOt0UA"
-      },
-      {
-        name: "Дроздов Сергей",
-        img: "photos/Дроздов.jpg",
-        age: "51 год",
-        size: "175/48/43",
-        video: "https://disk.yandex.ru/i/5c5fESyiot18jg"
-      },
-      {
-        name: "Корбут Павел",
-        img: "photos/Корбут.jpg",
-        age: "51 год",
-        size: "182/42/52",
-        video: "https://disk.yandex.ru/i/eHYRpvyJGlaQuQ"
-      },
-      {
-        name: "Кулев Андрей",
-        img: "photos/Кулев.jpg",
-        size: "183/56/43",
-        video: "https://disk.yandex.ru/i/15eyl7PzVx8D8A"
-      },
-      {
-        name: "Власов Илья",
-        img: "photos/Власов.jpg",
-        size: "182",
-        video: "https://disk.yandex.ru/i/yzD-GexzmGIr0A"
-      }
-    ],
-    "Толстый мужчина с английским бульдогом": [],
-    "Охранник": [],
-    "Фотограф": [],
+    "Повар": povaActs,
+    "Кудрявая девушка с пуделем": [{ name: "Зарбалиева Сабина", img: "photos/Сабина.jpg", img2: "photos/пудельМакс.jpg", size: "171/44", video: "https://disk.yandex.ru/d/XcqkLtlzmqzW2w" }],
     "Мама ребенка": [],
-    "Ребенок": [],
-    "Менеджер ресторана": [],
     "дублер Папы": [],
     "дублер Мамы": [],
-    "дублер Сын": []
+    "дублер Сына": []
   };
+
+  // ---------- ФУНКЦИИ ДЛЯ МОДАЛЬНЫХ ОКОН ----------
+  function openPhotoModal(imgSrc) {
+    if (!imgSrc) return;
+    const modal = document.getElementById('photoModal');
+    const modalImg = document.getElementById('modalPhotoImg');
+    modalImg.src = imgSrc;
+    modal.style.display = 'flex';
+  }
+
+  function closePhotoModal(event) {
+    if (event && event.target !== event.currentTarget && event.target.className !== 'modal-close') return;
+    document.getElementById('photoModal').style.display = 'none';
+    document.getElementById('modalPhotoImg').src = '';
+  }
+
+  function openVideoModal(embedCode) {
+    const modal = document.getElementById('videoModal');
+    const playerDiv = document.getElementById('videoPlayer');
+    playerDiv.innerHTML = embedCode;
+    const iframe = playerDiv.querySelector('iframe');
+    if (iframe) {
+      iframe.style.width = '100%';
+      iframe.style.height = '450px';
+      iframe.style.border = 'none';
+      iframe.style.borderRadius = '28px';
+    }
+    modal.style.display = 'flex';
+  }
+
+  function closeVideoModal(event) {
+    if (event && event.target !== event.currentTarget && event.target.className !== 'video-close') return;
+    document.getElementById('videoModal').style.display = 'none';
+    document.getElementById('videoPlayer').innerHTML = '';
+  }
+
+  // ---------- ОТКРЫТИЕ БЛОКА "МАЛЬЧИК И КОРГИ" ----------
+  function openKidsAndDogsModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+    
+    const container = document.createElement('div');
+    container.className = 'modal-container';
+    container.onclick = (e) => e.stopPropagation();
+    
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+    header.innerHTML = `<h2>🐕 МАЛЬЧИК И КОРГИ 11.06</h2><div class="modal-close">×</div>`;
+    header.querySelector('.modal-close').onclick = () => modal.remove();
+    
+    const grid = document.createElement('div');
+    grid.className = 'special-grid';
+    
+    kidsAndDogs.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'special-card';
+      card.innerHTML = `
+        <div class="special-photo">
+          <img src="${item.img}" alt="${item.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'133\' viewBox=\'0 0 100 133\'%3E%3Crect width=\'100\' height=\'133\' fill=\'%23222\'/%3E%3Ctext x=\'50\' y=\'66\' font-size=\'12\' fill=\'%23777\' text-anchor=\'middle\' dy=\'.3em\'%3Eнет фото%3C/text%3E%3C/svg%3E'">
+        </div>
+        <div class="special-info">
+          <div class="special-name">${escapeHtml(item.name)}</div>
+          <button class="special-video-btn">▶ Смотреть видео</button>
+        </div>
+      `;
+      const img = card.querySelector('img');
+      img.onclick = () => openPhotoModal(item.img);
+      const btn = card.querySelector('.special-video-btn');
+      btn.onclick = () => openVideoModal(item.videoEmbed);
+      grid.appendChild(card);
+    });
+    
+    container.appendChild(header);
+    container.appendChild(grid);
+    modal.appendChild(container);
+    document.body.appendChild(modal);
+  }
+
+  // ---------- ОТКРЫТИЕ БЛОКА "ПАССАЖИРЫ АВТОБУСА" (заглушка) ----------
+  function openPassengersModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+    
+    const container = document.createElement('div');
+    container.className = 'modal-container';
+    container.onclick = (e) => e.stopPropagation();
+    
+    const header = document.createElement('div');
+    header.className = 'modal-header';
+    header.innerHTML = `<h2>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</h2><div class="modal-close">×</div>`;
+    header.querySelector('.modal-close').onclick = () => modal.remove();
+    
+    const placeholder = document.createElement('div');
+    placeholder.className = 'placeholder-block';
+    placeholder.innerHTML = '<p>📋 Анкеты пассажиров появятся позже</p><small>Идёт сбор и обработка данных</small>';
+    
+    container.appendChild(header);
+    container.appendChild(placeholder);
+    modal.appendChild(container);
+    document.body.appendChild(modal);
+  }
 
   // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
   function escapeHtml(str) {
@@ -710,98 +664,54 @@
     });
   }
 
-  function buildMetaBlock(actor) {
-    let metaItems = [];
-    if (actor.age) metaItems.push(`📅 ${actor.age}`);
-    if (actor.size) metaItems.push(`📏 ${actor.size}`);
-    if (actor.education) metaItems.push(`🎓 ${actor.education}`);
-    if (metaItems.length === 0) return '';
-    const spans = metaItems.map(item => `<span>${escapeHtml(item)}</span>`).join('');
-    return `<div class="meta">${spans}</div>`;
-  }
-
-  function renderPhotoBlock(actor) {
-    if (actor.img2) {
-      return `
-        <div class="photo-block">
-          <div class="carousel-slider">
-            <div class="slide"><img src="${actor.img}" alt="фото 1" loading="lazy" onclick="openFullImage('${actor.img}')"></div>
-            <div class="slide"><img src="${actor.img2}" alt="фото 2" loading="lazy" onclick="openFullImage('${actor.img2}')"></div>
-          </div>
-        </div>
-      `;
-    } else {
-      return `
-        <div class="photo-block single-photo">
-          <img src="${actor.img}" alt="${actor.name}" loading="lazy" onclick="openFullImage('${actor.img}')">
-        </div>
-      `;
-    }
-  }
-
-  function openFullImage(src) {
-    if (!src) return;
-    const modal = document.getElementById('photoModal');
-    const modalImg = document.getElementById('modalPhotoImg');
-    modalImg.src = src;
-    modal.style.display = 'flex';
-  }
-
-  function closePhotoModal(event) {
-    if (event && event.target !== event.currentTarget && event.target.className !== 'close-modal') return;
-    document.getElementById('photoModal').style.display = 'none';
-    document.getElementById('modalPhotoImg').src = '';
-  }
-
   function showContacts(actor) {
-    const modal = document.getElementById('contactsModal');
-    const bodyDiv = document.getElementById('contactsModalBody');
-    let contactsHtml = `<h3>📞 ${escapeHtml(actor.name)}</h3>`;
-    if (actor.contacts && Object.keys(actor.contacts).length > 0) {
-      const c = actor.contacts;
-      if (c.phone1) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone1)}</strong></p>`;
-      if (c.phone) contactsHtml += `<p>📱 Телефон: <strong>${escapeHtml(c.phone)}</strong></p>`;
-      if (c.agent) contactsHtml += `<p>🎭 Агент: ${escapeHtml(c.agent)}</p>`;
-      if (c.agentPhone) contactsHtml += `<p>📞 Агент: ${escapeHtml(c.agentPhone)}</p>`;
-      if (c.agency) contactsHtml += `<p>🏢 Агентство: ${escapeHtml(c.agency)}</p>`;
-      if (c.email) contactsHtml += `<p>✉️ Email: <strong>${escapeHtml(c.email)}</strong></p>`;
-    } else {
-      contactsHtml += `<p>Контакты не указаны</p>`;
-    }
-    bodyDiv.innerHTML = contactsHtml;
-    modal.style.display = 'flex';
+    let msg = `📞 ${actor.name}\n\n`;
+    if (actor.contacts.phone1) msg += `Телефон: ${actor.contacts.phone1}\n`;
+    if (actor.contacts.phone) msg += `Телефон: ${actor.contacts.phone}\n`;
+    if (actor.contacts.agent) msg += `Агент: ${actor.contacts.agent}\n`;
+    if (actor.contacts.agentPhone) msg += `Агент: ${actor.contacts.agentPhone}\n`;
+    if (actor.contacts.agency) msg += `Агентство: ${actor.contacts.agency}\n`;
+    if (actor.contacts.email) msg += `Email: ${actor.contacts.email}`;
+    alert(msg);
   }
 
-  function closeContactsModal(event) {
-    if (event && event.target !== event.currentTarget && event.target.className !== 'close-modal') return;
-    document.getElementById('contactsModal').style.display = 'none';
-  }
-
+  // ---------- НАВИГАЦИЯ ПО РОЛЯМ И УТВЕРЖДЕННЫМ ----------
   function openRole(role) {
     const actorsList = data[role];
     document.getElementById('home').style.display = 'none';
     document.getElementById('actorPage').style.display = 'block';
     const container = document.getElementById('actorContainer');
     container.innerHTML = '';
-
     if (!actorsList || actorsList.length === 0) {
-      container.innerHTML = '<div class="empty-message">✨ Пока нет проб на эту роль</div>';
+      container.innerHTML = '<div class="empty-message" style="text-align:center; padding:48px;">✨ Пока нет проб на эту роль</div>';
       return;
     }
-
     actorsList.forEach(actor => {
-      const photoHtml = renderPhotoBlock(actor);
-      const metaHtml = buildMetaBlock(actor);
-      const videoBtn = actor.video 
-        ? `<button class="video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Смотреть видео</button>` 
-        : '';
+      let photoHtml = `<div class="single-photo"><img src="${actor.img}" onclick="openPhotoModal('${actor.img}')"></div>`;
+      if (actor.img2) {
+        photoHtml = `<div class="single-photo"><img src="${actor.img}" onclick="openPhotoModal('${actor.img}')"></div>`;
+      }
+      const metaHtml = (actor.age || actor.size) ? `<div class="meta">${actor.age ? `<span>📅 ${actor.age}</span>` : ''}${actor.size ? `<span>📏 ${actor.size}</span>` : ''}</div>` : '';
+      const videoBtn = actor.video ? `<button class="video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Смотреть видео</button>` : '';
+      container.innerHTML += `<div class="actor-card">${photoHtml}<div class="actor-info"><div class="name">${escapeHtml(actor.name)}</div>${metaHtml}${videoBtn}</div></div>`;
+    });
+  }
+
+  function openApproved() {
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('approvedPage').style.display = 'block';
+    const container = document.getElementById('approvedContainer');
+    container.innerHTML = '';
+    approved.forEach(item => {
+      const imgSrc = item.img && item.img.trim() !== "" ? item.img : "";
       container.innerHTML += `
-        <div class="actor-card">
-          ${photoHtml}
-          <div class="actor-info">
-            <div class="name">${escapeHtml(actor.name)}</div>
-            ${metaHtml}
-            ${videoBtn}
+        <div class="approved-row">
+          <img src="${imgSrc}" onclick="openPhotoModal('${imgSrc}')" style="${!imgSrc ? 'opacity:0.3; background:var(--bg-input);' : ''}">
+          <div class="approved-info">
+            <strong>${escapeHtml(item.role)}</strong>
+            <div>${escapeHtml(item.name)}</div>
+            <div>${item.age ? item.age + ' ' : ''}${item.size || ''}</div>
+            <button class="contacts-btn" onclick="showContacts(${JSON.stringify(item).replace(/"/g, '&quot;')})">📋 Контакты</button>
           </div>
         </div>
       `;
@@ -811,84 +721,41 @@
   function goBack() {
     document.getElementById('actorPage').style.display = 'none';
     document.getElementById('approvedPage').style.display = 'none';
-    document.getElementById('viewedPage').style.display = 'none';
     document.getElementById('home').style.display = 'block';
   }
 
-  function openViewed() {
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('viewedPage').style.display = 'block';
-    const container = document.getElementById('viewedContainer');
-    container.innerHTML = '';
-    if (!viewed.length) {
-      container.innerHTML = '<div class="empty-message">Нет просмотренных</div>';
-      return;
-    }
-    viewed.forEach(actor => {
-      const videoButton = actor.video 
-        ? `<button class="small-video-btn" onclick="window.open('${actor.video}', '_blank')">▶ Видео</button>`
-        : '';
-      container.innerHTML += `
-        <div class="approved-row">
-          <img src="${actor.img}" alt="${actor.name}" loading="lazy" onclick="openFullImage('${actor.img}')">
-          <div class="approved-info">
-            <strong>${escapeHtml(actor.name)}</strong>
-            <div>${actor.age || '—'}</div>
-            <div>${actor.size || '—'}</div>
-            ${videoButton}
-          </div>
-        </div>
-      `;
-    });
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    const btn = document.querySelector('.theme-toggle');
+    btn.innerHTML = document.body.classList.contains('light') ? '🌙 Тёмная тема' : '🌓 Светлая тема';
   }
 
-  function openApproved() {
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('approvedPage').style.display = 'block';
-    const container = document.getElementById('approvedContainer');
-    container.innerHTML = '';
-    if (!approved.length) {
-      container.innerHTML = '<div class="empty-message">Нет утвержденных</div>';
-      return;
-    }
-    approved.forEach(item => {
-      // Если фото не указано, показываем заглушку (пустое место)
-      const imgSrc = item.img && item.img.trim() !== "" ? item.img : "";
-      container.innerHTML += `
-        <div class="approved-row">
-          <img src="${imgSrc}" alt="${item.name}" loading="lazy" onclick="openFullImage('${imgSrc}')" style="${!imgSrc ? 'opacity:0.3; background:#2c2c2e;' : ''}">
-          <div class="approved-info">
-            <strong>${escapeHtml(item.role)}</strong>
-            <div>${escapeHtml(item.name)}</div>
-            <div>${item.age ? item.age + ' ' : ''}${item.size || ''}</div>
-            <div class="btn-group">
-              <button class="contacts-btn" onclick="window.showContactsForActor(${JSON.stringify(item).replace(/"/g, '&quot;')})">📋 Контакты</button>
-            </div>
-          </div>
-        </div>
-      `;
-    });
-    window.showContactsForActor = function(actorObj) {
-      showContacts(actorObj);
-    };
-  }
-
-  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ ----------
+  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ (ПО ПОРЯДКУ) ----------
   const roleListDiv = document.getElementById('roleList');
   roleListDiv.innerHTML = '';
 
-  const specials = [
-    { name: '✅ УТВЕРЖДЕННЫЕ', handler: openApproved, emoji: '⭐' },
-    { name: '👁 ПРОСМОТРЕННЫЕ', handler: openViewed, emoji: '👀' }
-  ];
-  specials.forEach(spec => {
-    const card = document.createElement('div');
-    card.className = 'role-card';
-    card.innerHTML = `<strong>${spec.name}</strong><div class="role-count">${spec.emoji} финальный список</div>`;
-    card.onclick = spec.handler;
-    roleListDiv.appendChild(card);
-  });
+  // 1. УТВЕРЖДЕННЫЕ
+  const approvedCard = document.createElement('div');
+  approvedCard.className = 'role-card';
+  approvedCard.innerHTML = `<strong>✅ УТВЕРЖДЕННЫЕ</strong><div class="role-count">⭐ финальный список</div>`;
+  approvedCard.onclick = openApproved;
+  roleListDiv.appendChild(approvedCard);
 
+  // 2. МАЛЬЧИК И КОРГИ
+  const kidsCard = document.createElement('div');
+  kidsCard.className = 'role-card';
+  kidsCard.innerHTML = `<strong>🐕 МАЛЬЧИК И КОРГИ 11.06</strong><div class="role-count">🐾 11 участников</div>`;
+  kidsCard.onclick = openKidsAndDogsModal;
+  roleListDiv.appendChild(kidsCard);
+
+  // 3. ПАССАЖИРЫ АВТОБУСА
+  const passengersCard = document.createElement('div');
+  passengersCard.className = 'role-card';
+  passengersCard.innerHTML = `<strong>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</strong><div class="role-count">👥 анкеты скоро</div>`;
+  passengersCard.onclick = openPassengersModal;
+  roleListDiv.appendChild(passengersCard);
+
+  // 4. ОСТАЛЬНЫЕ РОЛИ
   for (let role in data) {
     const count = data[role].length;
     const card = document.createElement('div');
@@ -900,11 +767,12 @@
 
   window.goBack = goBack;
   window.openApproved = openApproved;
-  window.openViewed = openViewed;
   window.openRole = openRole;
-  window.openFullImage = openFullImage;
+  window.openPhotoModal = openPhotoModal;
   window.closePhotoModal = closePhotoModal;
-  window.closeContactsModal = closeContactsModal;
+  window.openVideoModal = openVideoModal;
+  window.closeVideoModal = closeVideoModal;
+  window.toggleTheme = toggleTheme;
   window.showContacts = showContacts;
 </script>
 </body>
