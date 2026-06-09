@@ -548,23 +548,40 @@
     { role: "Дачник", name: "Гульнев Дмитрий", img: "photos/Гульнев1.jpg", size: "175/48/41", contacts: { agent: "Наталия Торлакян", agency: "Созвездие Нева", phone: "+7 921 913 39 82", email: "torlik@mail.ru" } },
     { role: "Ольга Львовна", name: "Елена Свирко", img: "photos/Свирко.jpg", size: "161/44/36", contacts: { phone: "+7 911 136 4565" } },
     { role: "Кучер", name: "Гайдук Артём", img: "photos/Гайдук.jpg", age: "38 лет", size: "170-52-43", contacts: { phone: "89052025673" } },
-    { role: "Ведущий", name: "Татаринович Виталий", img: "photos/Татаринович.jpg", age: "44 года", size: "187/48/43", contacts: { phone: "89219442360" } },
-    { role: "Ребенок с мамой", name: "Мария Смолянникова", img: "photos/ребенок.jpg", size: "", contacts: {} }
+    { role: "Ведущий", name: "Татаринович Виталий", img: "photos/Татринович.jpg", age: "44 года", size: "187/48/43", contacts: { phone: "89219442360" } },
+    { role: "Ребенок с мамой", name: "Мария Смолянникова", img: "", size: "", contacts: {} },
+    { role: "Корги Женя (хозяйка Александра)", name: "Корги Женя", img: "photos/Женя.jpg", contacts: { phone: "+7 921 892 1095", telegram: "@alex_robul" } },
+    { role: "Мальчик Воронов Вадим", name: "Воронов Вадим", img: "photos/Воронов.jpg", age: "9 лет", contacts: { phone: "+7 911 281 1978", telegram: "@Irina_VadimVV" } }
   ];
 
-  // ---------- ДАННЫЕ ДЛЯ БЛОКА "МАЛЬЧИК И КОРГИ" ----------
-  const kidsAndDogs = [
-    { name: "Корги Женечка", img: "photos/Женечка.jpg", videoEmbed: '<iframe src="https://vk.ru/video_ext.php?oid=543506&id=456240241" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>' },
-    { name: "Корги Йожик", img: "photos/Йожик.jpg", videoEmbed: '<iframe src="https://vk.ru/video_ext.php?oid=2084979&id=456240321" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" frameborder="0" allowfullscreen></iframe>' },
-    { name: "Корги Кэрри", img: "photos/Кэрри.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvqoxmkvuarcvu6fiv?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Корги Джан", img: "photos/Джан.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvz63ci7ugq5ynyf2m?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Корги Женя", img: "photos/Женя.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvynsuh5ul7eglmsx7?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Леонель Прокофьев, 12 лет", img: "photos/Прокофьев.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv4mvjz7m3a2u73toh?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Кузьмин Севастьян, 8 лет", img: "photos/Кузьмин.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvqgaz5vyycqiyga5g?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Дима Саворовский", img: "photos/Саворский.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvcjpzi2n5htilbscy?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Лещенко Богдан, 10 лет", img: "photos/Лещенко.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvipmb4q6ewlraq3cg?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Воронов Вадим, 9 лет", img: "photos/Воронов.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvxzdqy5wfmkrpa5it?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
-    { name: "Истомин Максим, 12 лет", img: "photos/Истомин.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvjn227yxxcmmrhtqy?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' }
+  // ---------- ПАССАЖИРЫ АВТОБУСА ----------
+  const passengers = [
+    { name: "Костырко Ольга", img: "photos/Костырко.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvbsbfpmrxcg366kcu?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Хвиюзов Сергей", img: "photos/Хвиюзов.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplviyd37tdn2vce3gl5?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Калита Алиса", img: "photos/Калита.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvbskev4ln32ykakru?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Иванова Наталья", img: "photos/Иванова.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv2zgru57rdiw2ly22?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Щербаков Евгений", img: "photos/Щербаков.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvnfw53oco6vbo5al5?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Преснякова-Хархалёва Ольга", img: "photos/Преснякова.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvvmunpyu2zgesasay?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Грядецкий Максим", img: "photos/Грядецкий.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvo5raddwprznyctpa?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Лежнева Юлия", img: "photos/Лежнева.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvufwgeiye3mtajtj7?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Герман Светлана (Дудочкина)", img: "photos/Дудочкина.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvjxcd6l4yh3aqlkmo?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Никулина Виктория", img: "photos/Никулина.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvnw72ioxtblfdcl5e?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Гриц Елена", img: "photos/Гриц.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv4ypvchp23f22otap?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Куликов Глеб", img: "photos/Куликов.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvifnwe5wv6fi5cahb?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Шляхтин Максим", img: "photos/Шляхтин.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv5pew2rvmfxb2kgka?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Ерасова Марина", img: "photos/Ерасова.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvbnozfmhup2dloixu?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Пигалкина Галина", img: "photos/Пигалкина.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvi74ar5ccmgbwsqf2?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Астахова Анжелика", img: "photos/астахова.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvrvcczccedachg4zu?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Афанасьев Геннадий", img: "photos/Афанасьев.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv5ahwl27pubno2lab?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Шапошников Алексей", img: "photos/Шапошников.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv2raknmuego5so3cg?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Супрун Давид", img: "photos/супрун.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvsokwagfxvtnhjonz?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Матюкевич Евгений", img: "photos/Матюкевич.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvmggyso35mnzphb2p?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Тсулфас Иоаннис", img: "photos/тсуфлас.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvul5dpdmljffuzmbr?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Кудрина Варвара", img: "photos/Кудрина.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplv4b327pf2ve37bgm4?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Баев Руслан", img: "photos/Баев.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvqj5lm2t3f57eawlh?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Шорникова Элла", img: "photos/Шорникова.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvwae52myj22yuwjkd?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Дорохина Людмила", img: "photos/Дорохина.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvfl7j2h4ys4jbk5jj?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' },
+    { name: "Михайловский Сергей", img: "photos/Михайловский.jpg", videoEmbed: '<iframe src="https://runtime.video.cloud.yandex.net/player/video/vplvuv5phe3hspyurzk6?autoplay=0&mute=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture" frameborder="0" scrolling="no"></iframe>' }
   ];
 
   // ---------- ПРОБЫ НА ПОВАРА ----------
@@ -623,8 +640,8 @@
     document.getElementById('videoPlayer').innerHTML = '';
   }
 
-  // ---------- ОТКРЫТИЕ БЛОКА "МАЛЬЧИК И КОРГИ" ----------
-  function openKidsAndDogsModal() {
+  // ---------- ОТКРЫТИЕ БЛОКА "ПАССАЖИРЫ АВТОБУСА" ----------
+  function openPassengersModal() {
     const modal = document.createElement('div');
     modal.className = 'modal-overlay';
     modal.style.display = 'flex';
@@ -636,13 +653,13 @@
     
     const header = document.createElement('div');
     header.className = 'modal-header';
-    header.innerHTML = `<h2>🐕 МАЛЬЧИК И КОРГИ 11.06</h2><div class="modal-close">×</div>`;
+    header.innerHTML = `<h2>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</h2><div class="modal-close">×</div>`;
     header.querySelector('.modal-close').onclick = () => modal.remove();
     
     const grid = document.createElement('div');
     grid.className = 'special-grid';
     
-    kidsAndDogs.forEach(item => {
+    passengers.forEach(item => {
       const card = document.createElement('div');
       card.className = 'special-card';
       card.innerHTML = `
@@ -667,32 +684,6 @@
     document.body.appendChild(modal);
   }
 
-  // ---------- ОТКРЫТИЕ БЛОКА "ПАССАЖИРЫ АВТОБУСА" (заглушка) ----------
-  function openPassengersModal() {
-    const modal = document.createElement('div');
-    modal.className = 'modal-overlay';
-    modal.style.display = 'flex';
-    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
-    
-    const container = document.createElement('div');
-    container.className = 'modal-container';
-    container.onclick = (e) => e.stopPropagation();
-    
-    const header = document.createElement('div');
-    header.className = 'modal-header';
-    header.innerHTML = `<h2>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</h2><div class="modal-close">×</div>`;
-    header.querySelector('.modal-close').onclick = () => modal.remove();
-    
-    const placeholder = document.createElement('div');
-    placeholder.className = 'placeholder-block';
-    placeholder.innerHTML = '<p>📋 Анкеты пассажиров появятся позже</p><small>Идёт сбор и обработка данных</small>';
-    
-    container.appendChild(header);
-    container.appendChild(placeholder);
-    modal.appendChild(container);
-    document.body.appendChild(modal);
-  }
-
   // ---------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ----------
   function escapeHtml(str) {
     if (!str) return '';
@@ -706,12 +697,13 @@
 
   function showContacts(actor) {
     let msg = `📞 ${actor.name}\n\n`;
-    if (actor.contacts.phone1) msg += `Телефон: ${actor.contacts.phone1}\n`;
     if (actor.contacts.phone) msg += `Телефон: ${actor.contacts.phone}\n`;
+    if (actor.contacts.phone1) msg += `Телефон: ${actor.contacts.phone1}\n`;
     if (actor.contacts.agent) msg += `Агент: ${actor.contacts.agent}\n`;
     if (actor.contacts.agentPhone) msg += `Агент: ${actor.contacts.agentPhone}\n`;
     if (actor.contacts.agency) msg += `Агентство: ${actor.contacts.agency}\n`;
-    if (actor.contacts.email) msg += `Email: ${actor.contacts.email}`;
+    if (actor.contacts.email) msg += `Email: ${actor.contacts.email}\n`;
+    if (actor.contacts.telegram) msg += `Telegram: ${actor.contacts.telegram}`;
     alert(msg);
   }
 
@@ -767,7 +759,7 @@
     btn.innerHTML = document.body.classList.contains('light') ? '🌙 Тёмная тема' : '🌓 Светлая тема';
   }
 
-  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ (ПО ПОРЯДКУ) ----------
+  // ---------- ПОСТРОЕНИЕ ГЛАВНОГО МЕНЮ ----------
   const roleListDiv = document.getElementById('roleList');
   roleListDiv.innerHTML = '';
 
@@ -778,21 +770,14 @@
   approvedCard.onclick = openApproved;
   roleListDiv.appendChild(approvedCard);
 
-  // 2. МАЛЬЧИК И КОРГИ
-  const kidsCard = document.createElement('div');
-  kidsCard.className = 'role-card';
-  kidsCard.innerHTML = `<strong>🐕 МАЛЬЧИК И КОРГИ 11.06</strong><div class="role-count">🐾 11 участников</div>`;
-  kidsCard.onclick = openKidsAndDogsModal;
-  roleListDiv.appendChild(kidsCard);
-
-  // 3. ПАССАЖИРЫ АВТОБУСА
+  // 2. ПАССАЖИРЫ АВТОБУСА
   const passengersCard = document.createElement('div');
   passengersCard.className = 'role-card';
-  passengersCard.innerHTML = `<strong>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</strong><div class="role-count">👥 анкеты скоро</div>`;
+  passengersCard.innerHTML = `<strong>🚌 ПАССАЖИРЫ АВТОБУСА 16 И 17 ИЮНЯ</strong><div class="role-count">👥 ${passengers.length} человек</div>`;
   passengersCard.onclick = openPassengersModal;
   roleListDiv.appendChild(passengersCard);
 
-  // 4. ОСТАЛЬНЫЕ РОЛИ
+  // 3. ОСТАЛЬНЫЕ РОЛИ
   for (let role in data) {
     const count = data[role].length;
     const card = document.createElement('div');
